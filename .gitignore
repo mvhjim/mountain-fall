@@ -1,0 +1,11 @@
+# Godot cache and imports (regenerated automatically)
+.godot/
+/android/
+
+# Local web builds
+/build/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
