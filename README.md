@@ -30,7 +30,7 @@ Everything works with the keyboard alone. Mouse support is added on top.
 | Interact, talk, pick up | E, Space, Enter | `interact` |
 | Cycle nearby targets | Tab | `cycle_target` |
 | Inventory | I | `inventory` |
-| Combine items (not used yet) | C | `combine` |
+| Combine items (in the inventory: pick one, C, pick another, C) | C | `combine` |
 | Back, close | Esc | `cancel` |
 | Pick a dialogue answer | Up/Down + Enter, or 1-9 | |
 
@@ -48,11 +48,13 @@ core/                  shared by all scenarios
   interactable/        add as a child to anything you can talk to or use
   ui/                  name entry screen, HUD, inventory window, dialogue box
 scenarios/
-  s1_city/             scenario 1: Maja collects the friends
+  s1_city/             scenario 1: Maja collects the friends (single player intro)
     s1_city.tscn       the map (open this in the editor)
     s1_city.dialogue   all conversations, plain text
     s1_city.gd         scenario logic called from dialogue ($> even_joins())
     items/             items for this scenario
+  s2_cabin/            scenario 2: arrival at the cabin, one turn per friend, scoring
+core/gutten/           Gutten, the hidden fifth friend, and the SafeZone he gives up at
 assets/                tiles, sprites (placeholders for now), fonts, audio
 addons/                Dialogue Manager 4.2.0 by Nathan Hoad (MIT)
 tests/                 automated playthrough
@@ -66,13 +68,21 @@ tools/                 placeholder art generator (Python, not part of the game)
 - **People and objects you can use:** give them an `Interactable` child (see `MrsBerg` in the scene). Set its name, verb ("Talk to"), dialogue file and cue (the `~ cue` in the dialogue file).
 - **Items:** in the FileSystem dock, right-click `items/` > New Resource > Item. Register new items in the scenario script's `ITEMS` list.
 
+## Turns, points and Gutten (scenario 2)
+
+- Each friend gets one turn with one task. A "Maja's turn!" card comes up between turns, so it works for one player or four players sharing a keyboard.
+- Points: task done +100, speed bonus up to +50, fall -20, finding Gutten +50 (once per friend), escaping him +75. Change the numbers at the top of `s2_cabin.gd` and in `core/gutten/gutten.gd`.
+- Gutten wakes up when you open the cellar hatch, or combine beer and cigarettes in the inventory. He needs 2 seconds to wake up, then he chases you. Reach the sauna or survive 25 seconds. If he catches you, he drags you off the edge, which counts as a fall.
+- New triggers: in dialogue, call `$> wake_gutten("NodeName")`. For item combos, use `Inventory.add_recipe("a", "b", some_function)` in the scenario script.
+
 ## Tests
 
 ```
 godot --headless --path . res://tests/playthrough_s1.tscn
+godot --headless --path . res://tests/playthrough_s2.tscn
 ```
 
-Plays scenario 1 from start to end (fall off an edge, get the keys, convince Even, drive off) and prints PASS/FAIL for each step.
+Each one plays a scenario from start to end and prints PASS/FAIL for each step. Scenario 1 covers falling off an edge, getting the keys, convincing Even and driving off. Scenario 2 covers all four turns, Gutten from the cellar and from beer + cigarettes, and the scoreboard.
 
 ## How we work
 

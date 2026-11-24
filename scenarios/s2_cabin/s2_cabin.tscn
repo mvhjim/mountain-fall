@@ -1,0 +1,602 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://scenarios/s2_cabin/s2_cabin.gd" id="1_p7rgd"]
+[ext_resource type="TileSet" path="res://assets/tiles/mountain_tileset.tres" id="2_4y5im"]
+[ext_resource type="Texture2D" path="res://assets/sprites/cabin.png" id="3_p2khe"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sauna.png" id="4_qo7k7"]
+[ext_resource type="Texture2D" path="res://assets/sprites/shed.png" id="5_aqyk8"]
+[ext_resource type="Texture2D" path="res://assets/sprites/car.png" id="6_g5qhn"]
+[ext_resource type="Script" path="res://core/interactable/interactable.gd" id="7_121nr"]
+[ext_resource type="Resource" path="res://scenarios/s2_cabin/s2_cabin.dialogue" id="8_8bmty"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sign.png" id="9_0qvfr"]
+[ext_resource type="Texture2D" path="res://assets/sprites/frog_stone.png" id="10_wlllo"]
+[ext_resource type="Texture2D" path="res://assets/sprites/stone.png" id="11_4xyms"]
+[ext_resource type="Texture2D" path="res://assets/sprites/fusebox.png" id="12_dencp"]
+[ext_resource type="Texture2D" path="res://assets/sprites/item_bucket.png" id="13_3f1n2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/barrel.png" id="14_nkkvp"]
+[ext_resource type="Texture2D" path="res://assets/sprites/woodpile.png" id="15_7h6vs"]
+[ext_resource type="Texture2D" path="res://assets/sprites/stove.png" id="16_xkvn1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/cooler.png" id="17_i3o14"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bench.png" id="18_tbetg"]
+[ext_resource type="Texture2D" path="res://assets/sprites/cellar_hatch.png" id="19_p1b4v"]
+[ext_resource type="Texture2D" path="res://assets/sprites/pine.png" id="20_qxwvj"]
+[ext_resource type="Texture2D" path="res://assets/sprites/maja.png" id="21_5ea2s"]
+[ext_resource type="Texture2D" path="res://assets/sprites/even.png" id="22_ah5rd"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sara.png" id="23_tuq0t"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tom.png" id="24_lf1h2"]
+[ext_resource type="PackedScene" path="res://core/player/player.tscn" id="25_2cbbj"]
+[ext_resource type="Script" path="res://core/player/player.gd" id="26_kiucj"]
+[ext_resource type="Script" path="res://core/gutten/safe_zone.gd" id="27_2vuh0"]
+[ext_resource type="Script" path="res://core/ui/hud.gd" id="28_cds8t"]
+[ext_resource type="Script" path="res://core/ui/inventory_panel.gd" id="29_33eka"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1w1dg"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_etc5i"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_reaca"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wg47t"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4npq8"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_faay1"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2jeci"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pmb33"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ligcs"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sgsob"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u1cdi"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w01v0"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qq7m3"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vixa1"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jb5ik"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dvjlr"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6hlot"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dmlal"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nlhy7"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ko20r"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4i86e"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gjfkv"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_58nwu"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sn2xm"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_011qc"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_47tg6"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uctr4"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ygpt"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ssnq5"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ldt6v"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aoq3e"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_udnt5"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ksu3"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hjq23"]
+radius = 4.0
+
+[node name="S2Cabin" type="Node2D" unique_id=873249597]
+script = ExtResource("1_p7rgd")
+
+[node name="Floor" type="TileMapLayer" parent="." unique_id=1357385112 groups=["floor"]]
+tile_map_data = PackedByteArray("AAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAALAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAANAAAAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAKAAEAAAAAAAAAAAALAAEAAAAAAAAAAAAMAAEAAAAAAAAAAAANAAEAAAAAAAAAAAAOAAEAAAAFAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAIAAIAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAALAAIAAAAAAAAAAAAMAAIAAAAAAAAAAAANAAIAAAAAAAAAAAAOAAIAAAAFAAAAAAAAAAMAAAAAAAAAAAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAADAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAGAAMAAAAAAAAAAAAHAAMAAAAAAAAAAAAIAAMAAAAAAAAAAAAJAAMAAAAAAAAAAAAKAAMAAAAAAAAAAAALAAMAAAAAAAAAAAAMAAMAAAAAAAAAAAANAAMAAAAFAAAAAAAOAAMAAAAFAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAADAAAAAAAFAAQAAAADAAAAAAAGAAQAAAADAAAAAAAHAAQAAAADAAAAAAAIAAQAAAADAAAAAAAJAAQAAAAAAAAAAAAKAAQAAAAAAAAAAAALAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAANAAQAAAAFAAAAAAAAAAUAAAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAADAAAAAAAFAAUAAAADAAAAAAAGAAUAAAADAAAAAAAHAAUAAAADAAAAAAAIAAUAAAADAAAAAAAJAAUAAAAAAAAAAAAKAAUAAAAAAAAAAAALAAUAAAAAAAAAAAAMAAUAAAAAAAAAAAANAAUAAAAFAAAAAAAAAAYAAAAAAAAAAAABAAYAAAAAAAAAAAACAAYAAAAAAAAAAAADAAYAAAAAAAAAAAAEAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAAGAAYAAAACAAAAAAAHAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAJAAYAAAAAAAAAAAAKAAYAAAAAAAAAAAALAAYAAAAAAAAAAAAMAAYAAAAFAAAAAAANAAYAAAAFAAAAAAABAAcAAAAAAAAAAAACAAcAAAABAAAAAAADAAcAAAAAAAAAAAAEAAcAAAAAAAAAAAAFAAcAAAAAAAAAAAAGAAcAAAACAAAAAAAHAAcAAAAAAAAAAAAIAAcAAAAAAAAAAAAJAAcAAAAAAAAAAAAKAAcAAAABAAAAAAALAAcAAAAAAAAAAAAMAAcAAAAFAAAAAAACAAgAAAABAAAAAAADAAgAAAAEAAAAAAAEAAgAAAAEAAAAAAAFAAgAAAAEAAAAAAAGAAgAAAACAAAAAAAHAAgAAAAEAAAAAAAIAAgAAAAEAAAAAAAJAAgAAAABAAAAAAAEAAkAAAAEAAAAAAAFAAkAAAAEAAAAAAAGAAkAAAACAAAAAAAHAAkAAAAEAAAAAAAIAAkAAAAEAAAAAAAGAAoAAAACAAAAAAAGAAsAAAACAAAAAAAFAAwAAAABAAAAAAAGAAwAAAACAAAAAAAHAAwAAAABAAAAAAADAA0AAAABAAAAAAAEAA0AAAABAAAAAAAFAA0AAAAAAAAAAAAGAA0AAAACAAAAAAAHAA0AAAAAAAAAAAAIAA0AAAAAAAAAAAAJAA0AAAABAAAAAAADAA4AAAAAAAAAAAAEAA4AAAAAAAAAAAAFAA4AAAAAAAAAAAAGAA4AAAACAAAAAAAHAA4AAAACAAAAAAAIAA4AAAACAAAAAAAJAA4AAAAAAAAAAAAKAA4AAAAAAAAAAAAEAA8AAAAAAAAAAAAFAA8AAAAAAAAAAAAGAA8AAAAAAAAAAAAHAA8AAAAAAAAAAAAIAA8AAAAAAAAAAAAJAA8AAAAAAAAAAAA=")
+tile_set = ExtResource("2_4y5im")
+
+[node name="World" type="Node2D" parent="." unique_id=748043157]
+y_sort_enabled = true
+
+[node name="Cabin" type="StaticBody2D" parent="World" unique_id=1875160418]
+position = Vector2(88, 76)
+
+[node name="Sprite" type="Sprite2D" parent="World/Cabin" unique_id=502431232]
+texture = ExtResource("3_p2khe")
+centered = false
+offset = Vector2(-56, -62)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="World/Cabin" unique_id=659264748]
+polygon = PackedVector2Array(-8, -28, 56, 4, 8, 28, -56, -4)
+
+[node name="Sauna" type="StaticBody2D" parent="World" unique_id=640768002]
+position = Vector2(16, 32)
+
+[node name="Sprite" type="Sprite2D" parent="World/Sauna" unique_id=1259473020]
+texture = ExtResource("4_qo7k7")
+centered = false
+offset = Vector2(-32, -40)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="World/Sauna" unique_id=389906015]
+polygon = PackedVector2Array(0, -16, 32, 0, 0, 16, -32, 0)
+
+[node name="Shed" type="StaticBody2D" parent="World" unique_id=1724998496]
+position = Vector2(128, 120)
+
+[node name="Sprite" type="Sprite2D" parent="World/Shed" unique_id=813026495]
+texture = ExtResource("5_aqyk8")
+centered = false
+offset = Vector2(-32, -38)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="World/Shed" unique_id=228866641]
+polygon = PackedVector2Array(0, -16, 32, 0, 0, 16, -32, 0)
+
+[node name="Car" type="StaticBody2D" parent="World" unique_id=39089188]
+position = Vector2(-88, 180)
+
+[node name="Sprite" type="Sprite2D" parent="World/Car" unique_id=1362168557]
+texture = ExtResource("6_g5qhn")
+centered = false
+offset = Vector2(-24, -28)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="World/Car" unique_id=2043531542]
+polygon = PackedVector2Array(-8, -12, 24, 4, 8, 12, -24, -4)
+
+[node name="Interactable" type="Area2D" parent="World/Car" unique_id=671203651]
+script = ExtResource("7_121nr")
+display_name = "the car"
+verb = "Search"
+dialogue = ExtResource("8_8bmty")
+cue = "car"
+marker_height = 22.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Car/Interactable" unique_id=27495370]
+shape = SubResource("CircleShape2D_1w1dg")
+
+[node name="CabinDoor" type="Node2D" parent="World" unique_id=1355989090]
+position = Vector2(48, 84)
+
+[node name="Interactable" type="Area2D" parent="World/CabinDoor" unique_id=1124718221]
+script = ExtResource("7_121nr")
+display_name = "the cabin door"
+verb = "Open"
+dialogue = ExtResource("8_8bmty")
+cue = "cabin_door"
+marker_height = 26.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/CabinDoor/Interactable" unique_id=1332706198]
+shape = SubResource("CircleShape2D_etc5i")
+
+[node name="Sign" type="StaticBody2D" parent="World" unique_id=2084191343]
+position = Vector2(32, 112)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Sign" unique_id=393496289]
+shape = SubResource("CircleShape2D_reaca")
+
+[node name="Sprite" type="Sprite2D" parent="World/Sign" unique_id=1559014693]
+texture = ExtResource("9_0qvfr")
+offset = Vector2(0, -6)
+
+[node name="Interactable" type="Area2D" parent="World/Sign" unique_id=704988236]
+script = ExtResource("7_121nr")
+display_name = "the owner's note"
+verb = "Read"
+dialogue = ExtResource("8_8bmty")
+cue = "sign"
+marker_height = 22.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Sign/Interactable" unique_id=1118818736]
+shape = SubResource("CircleShape2D_wg47t")
+
+[node name="FrogStone" type="StaticBody2D" parent="World" unique_id=1181957299]
+position = Vector2(-48, 56)
+
+[node name="Shape" type="CollisionShape2D" parent="World/FrogStone" unique_id=1518921188]
+shape = SubResource("CircleShape2D_4npq8")
+
+[node name="Sprite" type="Sprite2D" parent="World/FrogStone" unique_id=421298618]
+texture = ExtResource("10_wlllo")
+offset = Vector2(0, -3)
+
+[node name="Interactable" type="Area2D" parent="World/FrogStone" unique_id=583995961]
+script = ExtResource("7_121nr")
+display_name = "the frog stone"
+verb = "Look under"
+dialogue = ExtResource("8_8bmty")
+cue = "frog_stone"
+marker_height = 16.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/FrogStone/Interactable" unique_id=183305632]
+shape = SubResource("CircleShape2D_faay1")
+
+[node name="Stone" type="StaticBody2D" parent="World" unique_id=297988130]
+position = Vector2(96, 144)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Stone" unique_id=1153215831]
+shape = SubResource("CircleShape2D_2jeci")
+
+[node name="Sprite" type="Sprite2D" parent="World/Stone" unique_id=329180091]
+texture = ExtResource("11_4xyms")
+offset = Vector2(0, -3)
+
+[node name="Interactable" type="Area2D" parent="World/Stone" unique_id=687298906]
+script = ExtResource("7_121nr")
+display_name = "the stone"
+verb = "Look under"
+dialogue = ExtResource("8_8bmty")
+cue = "stone"
+marker_height = 16.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Stone/Interactable" unique_id=1727390158]
+shape = SubResource("CircleShape2D_pmb33")
+
+[node name="Stone2" type="StaticBody2D" parent="World" unique_id=1140983685]
+position = Vector2(-64, 80)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Stone2" unique_id=1303378910]
+shape = SubResource("CircleShape2D_ligcs")
+
+[node name="Sprite" type="Sprite2D" parent="World/Stone2" unique_id=1558549633]
+texture = ExtResource("11_4xyms")
+offset = Vector2(0, -3)
+
+[node name="Interactable" type="Area2D" parent="World/Stone2" unique_id=760303132]
+script = ExtResource("7_121nr")
+display_name = "the stone"
+verb = "Look under"
+dialogue = ExtResource("8_8bmty")
+cue = "stone"
+marker_height = 16.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Stone2/Interactable" unique_id=560610297]
+shape = SubResource("CircleShape2D_sgsob")
+
+[node name="Stone3" type="StaticBody2D" parent="World" unique_id=82772569]
+position = Vector2(128, 96)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Stone3" unique_id=993895137]
+shape = SubResource("CircleShape2D_u1cdi")
+
+[node name="Sprite" type="Sprite2D" parent="World/Stone3" unique_id=1409680781]
+texture = ExtResource("11_4xyms")
+offset = Vector2(0, -3)
+
+[node name="Interactable" type="Area2D" parent="World/Stone3" unique_id=375301148]
+script = ExtResource("7_121nr")
+display_name = "the stone"
+verb = "Look under"
+dialogue = ExtResource("8_8bmty")
+cue = "stone"
+marker_height = 16.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Stone3/Interactable" unique_id=619457058]
+shape = SubResource("CircleShape2D_w01v0")
+
+[node name="FuseBox" type="StaticBody2D" parent="World" unique_id=693559834]
+position = Vector2(144, 136)
+
+[node name="Shape" type="CollisionShape2D" parent="World/FuseBox" unique_id=1059599863]
+shape = SubResource("CircleShape2D_qq7m3")
+
+[node name="Sprite" type="Sprite2D" parent="World/FuseBox" unique_id=1265384237]
+texture = ExtResource("12_dencp")
+offset = Vector2(0, -8)
+
+[node name="Interactable" type="Area2D" parent="World/FuseBox" unique_id=261494027]
+script = ExtResource("7_121nr")
+display_name = "the fuse box"
+verb = "Open"
+dialogue = ExtResource("8_8bmty")
+cue = "fusebox"
+marker_height = 22.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/FuseBox/Interactable" unique_id=1792859157]
+shape = SubResource("CircleShape2D_vixa1")
+
+[node name="Bucket" type="StaticBody2D" parent="World" unique_id=1776299998]
+position = Vector2(16, 88)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Bucket" unique_id=662012523]
+shape = SubResource("CircleShape2D_jb5ik")
+
+[node name="Sprite" type="Sprite2D" parent="World/Bucket" unique_id=2062055354]
+texture = ExtResource("13_3f1n2")
+offset = Vector2(0, -6)
+
+[node name="Interactable" type="Area2D" parent="World/Bucket" unique_id=928464496]
+script = ExtResource("7_121nr")
+display_name = "the bucket"
+verb = "Take"
+dialogue = ExtResource("8_8bmty")
+cue = "bucket"
+marker_height = 18.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Bucket/Interactable" unique_id=1800277052]
+shape = SubResource("CircleShape2D_dvjlr")
+
+[node name="Barrel" type="StaticBody2D" parent="World" unique_id=1344607208]
+position = Vector2(64, 112)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Barrel" unique_id=1422653004]
+shape = SubResource("CircleShape2D_6hlot")
+
+[node name="Sprite" type="Sprite2D" parent="World/Barrel" unique_id=239717749]
+texture = ExtResource("14_nkkvp")
+offset = Vector2(0, -7)
+
+[node name="Interactable" type="Area2D" parent="World/Barrel" unique_id=662853365]
+script = ExtResource("7_121nr")
+display_name = "the water barrel"
+verb = "Use"
+dialogue = ExtResource("8_8bmty")
+cue = "barrel"
+marker_height = 22.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Barrel/Interactable" unique_id=1680201330]
+shape = SubResource("CircleShape2D_dmlal")
+
+[node name="Woodpile" type="StaticBody2D" parent="World" unique_id=1416947173]
+position = Vector2(0, 64)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Woodpile" unique_id=1410695436]
+shape = SubResource("CircleShape2D_nlhy7")
+
+[node name="Sprite" type="Sprite2D" parent="World/Woodpile" unique_id=866245264]
+texture = ExtResource("15_7h6vs")
+offset = Vector2(0, -6)
+
+[node name="Interactable" type="Area2D" parent="World/Woodpile" unique_id=1210945950]
+script = ExtResource("7_121nr")
+display_name = "the woodpile"
+verb = "Take from"
+dialogue = ExtResource("8_8bmty")
+cue = "woodpile"
+marker_height = 20.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Woodpile/Interactable" unique_id=1219058228]
+shape = SubResource("CircleShape2D_ko20r")
+
+[node name="Stove" type="StaticBody2D" parent="World" unique_id=101682952]
+position = Vector2(16, 72)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Stove" unique_id=380540657]
+shape = SubResource("CircleShape2D_4i86e")
+
+[node name="Sprite" type="Sprite2D" parent="World/Stove" unique_id=1595532740]
+texture = ExtResource("16_xkvn1")
+offset = Vector2(0, -10)
+
+[node name="Interactable" type="Area2D" parent="World/Stove" unique_id=1026671638]
+script = ExtResource("7_121nr")
+display_name = "the stove"
+verb = "Use"
+dialogue = ExtResource("8_8bmty")
+cue = "stove"
+marker_height = 28.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Stove/Interactable" unique_id=612042974]
+shape = SubResource("CircleShape2D_gjfkv")
+
+[node name="Cooler" type="StaticBody2D" parent="World" unique_id=1674463764]
+position = Vector2(48, 104)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Cooler" unique_id=1046162794]
+shape = SubResource("CircleShape2D_58nwu")
+
+[node name="Sprite" type="Sprite2D" parent="World/Cooler" unique_id=729640573]
+texture = ExtResource("17_i3o14")
+offset = Vector2(0, -4)
+
+[node name="Interactable" type="Area2D" parent="World/Cooler" unique_id=906871868]
+script = ExtResource("7_121nr")
+display_name = "the cooler"
+verb = "Open"
+dialogue = ExtResource("8_8bmty")
+cue = "cooler"
+marker_height = 18.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Cooler/Interactable" unique_id=1533111715]
+shape = SubResource("CircleShape2D_sn2xm")
+
+[node name="Bench" type="StaticBody2D" parent="World" unique_id=1790222920]
+position = Vector2(64, 144)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Bench" unique_id=364961221]
+shape = SubResource("CircleShape2D_011qc")
+
+[node name="Sprite" type="Sprite2D" parent="World/Bench" unique_id=1643162501]
+texture = ExtResource("18_tbetg")
+offset = Vector2(0, -5)
+
+[node name="Interactable" type="Area2D" parent="World/Bench" unique_id=1166558252]
+script = ExtResource("7_121nr")
+display_name = "the bench"
+verb = "Look under"
+dialogue = ExtResource("8_8bmty")
+cue = "bench"
+marker_height = 18.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Bench/Interactable" unique_id=1875730882]
+shape = SubResource("CircleShape2D_47tg6")
+
+[node name="Cellar" type="Node2D" parent="World" unique_id=293391924]
+position = Vector2(-32, 80)
+
+[node name="Sprite" type="Sprite2D" parent="World/Cellar" unique_id=865124996]
+texture = ExtResource("19_p1b4v")
+offset = Vector2(0, -2)
+
+[node name="Interactable" type="Area2D" parent="World/Cellar" unique_id=1663035615]
+script = ExtResource("7_121nr")
+display_name = "the cellar hatch"
+verb = "Open"
+dialogue = ExtResource("8_8bmty")
+cue = "cellar"
+marker_height = 16.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Cellar/Interactable" unique_id=1045938971]
+shape = SubResource("CircleShape2D_uctr4")
+
+[node name="Stream" type="Node2D" parent="World" unique_id=1055671104]
+position = Vector2(144, 152)
+
+[node name="Interactable" type="Area2D" parent="World/Stream" unique_id=1327342566]
+script = ExtResource("7_121nr")
+display_name = "the stream"
+verb = "Use"
+dialogue = ExtResource("8_8bmty")
+cue = "stream"
+marker_height = 14.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Stream/Interactable" unique_id=921285764]
+shape = SubResource("CircleShape2D_3ygpt")
+
+[node name="Pine" type="StaticBody2D" parent="World" unique_id=2135937079]
+position = Vector2(-32, 32)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Pine" unique_id=4310269]
+shape = SubResource("CircleShape2D_ssnq5")
+
+[node name="Sprite" type="Sprite2D" parent="World/Pine" unique_id=1763732500]
+texture = ExtResource("20_qxwvj")
+offset = Vector2(0, -17)
+
+[node name="@StaticBody2D@2" type="StaticBody2D" parent="World" unique_id=1383003375]
+position = Vector2(192, 112)
+
+[node name="Shape" type="CollisionShape2D" parent="World/@StaticBody2D@2" unique_id=369464396]
+shape = SubResource("CircleShape2D_ldt6v")
+
+[node name="Sprite" type="Sprite2D" parent="World/@StaticBody2D@2" unique_id=343495570]
+texture = ExtResource("20_qxwvj")
+offset = Vector2(0, -17)
+
+[node name="@StaticBody2D@3" type="StaticBody2D" parent="World" unique_id=632057997]
+position = Vector2(32, 48)
+
+[node name="Shape" type="CollisionShape2D" parent="World/@StaticBody2D@3" unique_id=915423117]
+shape = SubResource("CircleShape2D_aoq3e")
+
+[node name="Sprite" type="Sprite2D" parent="World/@StaticBody2D@3" unique_id=1161283290]
+texture = ExtResource("20_qxwvj")
+offset = Vector2(0, -17)
+
+[node name="@StaticBody2D@4" type="StaticBody2D" parent="World" unique_id=125611649]
+position = Vector2(-128, 144)
+
+[node name="Shape" type="CollisionShape2D" parent="World/@StaticBody2D@4" unique_id=1439614571]
+shape = SubResource("CircleShape2D_udnt5")
+
+[node name="Sprite" type="Sprite2D" parent="World/@StaticBody2D@4" unique_id=630907185]
+texture = ExtResource("20_qxwvj")
+offset = Vector2(0, -17)
+
+[node name="@StaticBody2D@5" type="StaticBody2D" parent="World" unique_id=1510270189]
+position = Vector2(-64, 192)
+
+[node name="Shape" type="CollisionShape2D" parent="World/@StaticBody2D@5" unique_id=442589681]
+shape = SubResource("CircleShape2D_5ksu3")
+
+[node name="Sprite" type="Sprite2D" parent="World/@StaticBody2D@5" unique_id=317460373]
+texture = ExtResource("20_qxwvj")
+offset = Vector2(0, -17)
+
+[node name="@StaticBody2D@6" type="StaticBody2D" parent="World" unique_id=1964225080]
+position = Vector2(32, 144)
+
+[node name="Shape" type="CollisionShape2D" parent="World/@StaticBody2D@6" unique_id=406517910]
+shape = SubResource("CircleShape2D_hjq23")
+
+[node name="Sprite" type="Sprite2D" parent="World/@StaticBody2D@6" unique_id=967184122]
+texture = ExtResource("20_qxwvj")
+offset = Vector2(0, -17)
+
+[node name="Friend_maja" type="Node2D" parent="World" unique_id=309826848]
+position = Vector2(-128, 160)
+
+[node name="Sprite" type="Sprite2D" parent="World/Friend_maja" unique_id=776011242]
+texture = ExtResource("21_5ea2s")
+offset = Vector2(0, -11)
+
+[node name="Friend_even" type="Node2D" parent="World" unique_id=592655974]
+position = Vector2(-144, 152)
+
+[node name="Sprite" type="Sprite2D" parent="World/Friend_even" unique_id=45135462]
+texture = ExtResource("22_ah5rd")
+offset = Vector2(0, -11)
+
+[node name="Friend_sara" type="Node2D" parent="World" unique_id=554998369]
+position = Vector2(-144, 168)
+
+[node name="Sprite" type="Sprite2D" parent="World/Friend_sara" unique_id=1960154658]
+texture = ExtResource("23_tuq0t")
+offset = Vector2(0, -11)
+
+[node name="Friend_tom" type="Node2D" parent="World" unique_id=695170704]
+position = Vector2(-128, 176)
+
+[node name="Sprite" type="Sprite2D" parent="World/Friend_tom" unique_id=841537991]
+texture = ExtResource("24_lf1h2")
+offset = Vector2(0, -11)
+
+[node name="Player" type="CharacterBody2D" parent="World" unique_id=2033632717 instance=ExtResource("25_2cbbj")]
+position = Vector2(-96, 160)
+motion_mode = 1
+script = ExtResource("26_kiucj")
+
+[node name="SaunaSafeZone" type="Node2D" parent="." unique_id=1876442405]
+position = Vector2(0, 48)
+script = ExtResource("27_2vuh0")
+
+[node name="Spawn" type="Marker2D" parent="." unique_id=907933295]
+position = Vector2(-96, 160)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=318986039]
+script = ExtResource("28_cds8t")
+
+[node name="InventoryPanel" type="CanvasLayer" parent="." unique_id=808961308]
+script = ExtResource("29_33eka")

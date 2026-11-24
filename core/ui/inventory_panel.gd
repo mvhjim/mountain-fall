@@ -1,10 +1,14 @@
 extends CanvasLayer
 ## Inventory window. [I] opens and closes it, Up/Down picks an item, Esc closes.
+## [C] on an item starts combining: pick a second item and press C or Enter.
 
 var _panel: PanelContainer
 var _list: ItemList
 var _desc: Label
 var _open := false
+var _help: Label
+var _combine_btn: Button
+var _combine_first: Item
 
 
 func _ready() -> void:
@@ -35,17 +39,23 @@ func _ready() -> void:
 	_list.fixed_icon_size = Vector2i(32, 32)
 	_list.add_theme_font_size_override("font_size", 20)
 	_list.item_selected.connect(_on_selected)
+	_list.item_activated.connect(_on_activated)
 	box.add_child(_list)
 	_desc = Label.new()
 	_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_desc.add_theme_font_size_override("font_size", 18)
 	_desc.add_theme_color_override("font_color", Color(0.85, 0.9, 1))
 	box.add_child(_desc)
-	var help := Label.new()
-	help.text = "Up/Down: choose    I or Esc: close"
-	help.add_theme_font_size_override("font_size", 14)
-	help.add_theme_color_override("font_color", Color(0.6, 0.65, 0.75))
-	box.add_child(help)
+	_combine_btn = Button.new()
+	_combine_btn.text = "Combine (C)"
+	_combine_btn.focus_mode = Control.FOCUS_NONE
+	_combine_btn.pressed.connect(_on_combine_pressed)
+	box.add_child(_combine_btn)
+	_help = Label.new()
+	_help.add_theme_font_size_override("font_size", 14)
+	_help.add_theme_color_override("font_color", Color(0.6, 0.65, 0.75))
+	box.add_child(_help)
+	_set_help()
 	_panel.visible = false
 	Inventory.changed.connect(_refresh)
 
@@ -56,7 +66,51 @@ func _unhandled_input(event: InputEvent) -> void:
 		_set_open(not _open)
 	elif _open and event.is_action_pressed("cancel"):
 		get_viewport().set_input_as_handled()
-		_set_open(false)
+		if _combine_first:
+			_combine_first = null
+			_set_help()
+		else:
+			_set_open(false)
+	elif _open and event.is_action_pressed("combine"):
+		get_viewport().set_input_as_handled()
+		_on_combine_pressed()
+
+
+func _on_activated(_index: int) -> void:
+	if _combine_first:
+		_finish_combine()
+
+
+func _on_combine_pressed() -> void:
+	var sel := _list.get_selected_items()
+	if sel.is_empty():
+		return
+	if _combine_first == null:
+		_combine_first = Inventory.items[sel[0]]
+		_set_help()
+	else:
+		_finish_combine()
+
+
+func _finish_combine() -> void:
+	var sel := _list.get_selected_items()
+	if sel.is_empty() or _combine_first == null:
+		return
+	var second: Item = Inventory.items[sel[0]]
+	var first := _combine_first
+	_combine_first = null
+	_set_help()
+	if second == first:
+		return
+	_set_open(false)
+	Inventory.combine(first.id, second.id)
+
+
+func _set_help() -> void:
+	if _combine_first:
+		_help.text = "Combine %s with...? Pick an item, then C or Enter. Esc cancels." % _combine_first.display_name
+	else:
+		_help.text = "Up/Down: choose    C: combine    I or Esc: close"
 
 
 ## Also used by the on-screen hint and mouse users.
@@ -77,6 +131,8 @@ func _set_open(on: bool) -> void:
 			_list.select(0)
 			_on_selected(0)
 	else:
+		_combine_first = null
+		_set_help()
 		_list.release_focus()
 		GameState.unlock_soon()
 

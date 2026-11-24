@@ -1,0 +1,189 @@
+# Scenario 2: Arrival at the cabin. Four turns, one per friend.
+# {{me}} is the friend playing right now. active_friend is their id ("maja", "even", "sara", "tom").
+# complete_task() ends the turn's task. add_score(points, "reason") gives points.
+# wake_gutten("NodeName") wakes Gutten at that object.
+
+# ---------------------------------------------------------------- turn intros
+~ maja_turn
+{{maja}}: We made it! Well, almost. The road ends here.
+{{maja}}: The cabin is up the path. Careful, it's a long way down.
+{{maja}}: The owner left a note by the cabin about the key.
+=> END
+
+~ even_turn
+{{even}}: The door's open, but it's pitch dark inside. No power.
+{{even}}: There's a fuse box on the shed. How hard can it be?
+=> END
+
+~ sara_turn
+{{sara}}: Lights, nice. Running water? Not so much.
+{{sara}}: There's a bucket on the porch and a stream on the east side. I'll fill the barrel.
+=> END
+
+~ tom_turn
+{{tom}}: Last job: make it warm in here!
+{{tom}}: Firewood, something to light it with, and the stove on the porch. Easy.
+=> END
+
+~ evening
+{{maja}}: Power, water, fire. We did it!
+{{sara}}: To the cabin!
+{{tom}}: To the cabin!
+{{even}}: Hey... did anyone else set five plates on the table?
+{{maja}}: ...
+{{tom}}: I'm sure it's nothing. Scores, please!
+=> END
+
+# ---------------------------------------------------------------- Maja: the key
+~ sign
+{{me}}: A note from the owner: "Welcome! The key is under the frog. P.S. Do NOT open the cellar."
+=> END
+
+~ frog_stone
+if active_friend == "maja" and not Inventory.has("cabin_key") and not flag("door_unlocked")
+	{{me}}: A stone shaped like a frog... and under it, a key!
+	$> Inventory.give("cabin_key")
+else
+	{{me}}: A stone that looks like a frog. Cute.
+=> END
+
+~ stone
+% {{me}}: Just a stone. Very grey.
+% {{me}}: A cold stone. Not a frog.
+% {{me}}: Nothing under this one but snow.
+=> END
+
+~ cabin_door
+if flag("door_unlocked")
+	{{me}}: The door's open. Brr, it's freezing in there.
+elif Inventory.has("cabin_key")
+	{{me}}: Click! We're in!
+	$> Inventory.take("cabin_key")
+	$> set_flag("door_unlocked")
+	$> complete_task()
+else
+	{{me}}: Locked. The owner's note said something about a key.
+=> END
+
+# ---------------------------------------------------------------- Even: the power
+~ fusebox
+if flag("power_on")
+	{{me}}: All switched on. The lights work.
+	=> END
+if active_friend != "even"
+	{{me}}: The fuse box. That's {{even}}'s job.
+	=> END
+{{me}}: Three switches. The labels have almost faded away.
+- Switch A, "SAUNA"
+	{{me}}: Click. The sauna starts humming. Wrong one, but nice to know.
+	$> add_score(-10, "Wrong switch")
+	=> fusebox
+- Switch B, "CABIN"
+	{{me}}: Click. The windows light up!
+	$> set_flag("power_on")
+	$> complete_task()
+- Switch C, no label. It smells of smoke.
+	{{me}}: Click... Somewhere under the cabin, someone coughs.
+	{{me}}: Nope. Off again.
+	$> add_score(5, "Brave")
+	=> fusebox
+=> END
+
+# ---------------------------------------------------------------- Sara: the water
+~ bucket
+if active_friend == "sara"
+	{{me}}: A bucket. Perfect.
+	$> Inventory.give("bucket")
+	$> hide_node("Bucket")
+else
+	{{me}}: A bucket. {{sara}} said she'd take care of the water.
+=> END
+
+~ stream
+if Inventory.has("bucket")
+	{{me}}: Brr, ice cold! The bucket's full.
+	$> Inventory.take("bucket")
+	$> Inventory.give("bucket_full")
+else
+	{{me}}: A little mountain stream. The water is crystal clear.
+=> END
+
+~ barrel
+if flag("water_done")
+	{{me}}: The barrel is full of fresh water.
+elif Inventory.has("bucket_full")
+	{{me}}: Splash! Water for coffee, cooking and washing.
+	$> Inventory.take("bucket_full")
+	$> set_flag("water_done")
+	$> complete_task()
+elif active_friend == "sara"
+	{{me}}: The water barrel is empty. The stream runs along the east side.
+else
+	{{me}}: An empty water barrel.
+=> END
+
+# ---------------------------------------------------------------- Tom: the fire
+~ car
+if active_friend == "tom" and not Inventory.has("matches") and not flag("fire_done")
+	{{me}}: Matches in the glovebox. Knew it!
+	$> Inventory.give("matches")
+else
+	{{me}}: Our car. The road ends here, so it's walking from now on.
+=> END
+
+~ woodpile
+if active_friend == "tom" and not Inventory.has("firewood") and not flag("fire_done")
+	{{me}}: A pile of dry firewood. I'll take an armful.
+	$> Inventory.give("firewood")
+else
+	{{me}}: A neat pile of firewood. Someone's been busy.
+=> END
+
+~ stove
+if flag("fire_done")
+	{{me}}: The fire crackles. So cozy.
+elif Inventory.has("firewood") and Inventory.has("matches")
+	{{me}}: Wood in, match lit... It's burning!
+	$> Inventory.take("firewood")
+	$> Inventory.take("matches")
+	$> set_flag("fire_done")
+	$> complete_task()
+elif active_friend == "tom"
+	{{me}}: The stove is cold. I need firewood and something to light it with.
+else
+	{{me}}: A cold iron stove.
+=> END
+
+# ---------------------------------------------------------------- Gutten
+~ cellar
+if gutten_awake()
+	{{me}}: The hatch is wide open. It smells of beer and cigarettes down there.
+	=> END
+{{me}}: A cellar hatch. A sign says: DO NOT OPEN. EVER.
+- Open it anyway
+	{{me}}: Creeeeak...
+	Voice from below: Heeey! Is it party time?!
+	$> wake_gutten("Cellar")
+- Leave it alone
+	{{me}}: Good idea.
+=> END
+
+~ cooler
+if Inventory.has("beer")
+	{{me}}: One is enough.
+	=> END
+{{me}}: A cooler full of beer. Someone stocked it already? Weird.
+- Take a beer
+	$> Inventory.give("beer")
+- Leave it
+=> END
+
+~ bench
+if Inventory.has("cigarettes")
+	{{me}}: Just a bench.
+	=> END
+{{me}}: There's a crumpled pack of cigarettes under the bench. Not ours.
+- Take it
+	$> Inventory.give("cigarettes")
+- Leave it
+=> END
