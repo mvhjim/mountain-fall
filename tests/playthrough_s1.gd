@@ -1,5 +1,5 @@
 extends Node
-## Automated playthrough of scenario 1 (part 1).
+## Automated playthrough of scenario 1, part 1 (the city, with the hidden Smirnoff Ice).
 ## Run from the project folder:
 ##   godot --headless --path . res://tests/playthrough_s1.tscn
 ## Prints PASS/FAIL per step; exit code = number of failures.
@@ -133,6 +133,13 @@ func _ready() -> void:
 	await wait(0.3)
 	check(not GameState.input_locked, "inventory closes")
 
+	# the hidden Smirnoff Ice behind the tree in the west corner
+	await walk_to(Vector2(-130, 90))
+	check(player.selected_prompt() == "Look behind the tree", "hidden spot selected: %s" % player.selected_prompt())
+	await tap_action("interact")
+	said = await talk([])
+	check(Inventory.has("smirnoff_ice"), "found the Smirnoff Ice: %s" % [said])
+
 	await walk_to(c(6, 4) + Vector2(-14, 0))
 	check(player.selected_prompt() == "Talk to Mrs. Berg", "Mrs. Berg selected: %s" % player.selected_prompt())
 	await tap_action("interact")
@@ -161,17 +168,17 @@ func _ready() -> void:
 	await tap_action("interact")
 	said = await talk([1, 2])
 	check(GameState.flag("even_joined") and GameState.flag("even_out_of_office"), "Even joins after out-of-office: %s" % [said])
-	await wait(2.6)
+	check(GameState.flag("iced_even") and "Smirnoff Ice" in str(said), "Even gets iced at the car")
+	check(not scene.get_node("World/Even").visible, "Even is in the car")
+	await wait(0.5)
 
 	await walk_to(c(12.5, 5.5) + Vector2(0, -6))
 	await tap_action("interact")
 	said = await talk([])
 	check("Jim" in str(said) or said.size() >= 3, "drive-off dialogue: %s" % [said])
 	await wait(2.5)
-	var card := false
-	for n in scene.get_children():
-		if n is CanvasLayer and n.layer == 10:
-			card = true
-	check(card, "end card shows")
+	var now := get_tree().current_scene
+	check(now != null and now.scene_file_path.ends_with("s1_road.tscn"), "drives on to the road: %s" % (now.scene_file_path if now else "none"))
+	check(Inventory.has("smirnoff_ice") and Inventory.has("car_keys"), "inventory comes along to the road")
 	print("RESULT fails=%d" % fails)
 	get_tree().quit(fails)

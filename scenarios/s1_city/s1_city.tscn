@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://core/player/player.gd" id="16_7ymco"]
 [ext_resource type="Script" path="res://core/ui/hud.gd" id="17_ns26q"]
 [ext_resource type="Script" path="res://core/ui/inventory_panel.gd" id="18_lsu01"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bottle.png" id="19_b0ttl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cmpcw"]
 radius = 8.0
@@ -66,6 +67,9 @@ radius = 2.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kb1qt"]
 radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ice01"]
+radius = 8.0
 
 [node name="S1City" type="Node2D" unique_id=654137485]
 script = ExtResource("1_kggie")
@@ -291,6 +295,24 @@ offset = Vector2(0, -18)
 
 [node name="Shape" type="CollisionShape2D" parent="World/@StaticBody2D@8" unique_id=1435972161]
 shape = SubResource("CircleShape2D_kb1qt")
+
+[node name="HiddenIce" type="Node2D" parent="World" unique_id=1418093711]
+position = Vector2(-151, 84)
+
+[node name="Sprite" type="Sprite2D" parent="World/HiddenIce" unique_id=1418093712]
+texture = ExtResource("19_b0ttl")
+offset = Vector2(0, -6)
+
+[node name="Interactable" type="Area2D" parent="World/HiddenIce" unique_id=1418093713]
+script = ExtResource("8_gul7e")
+display_name = "the tree"
+verb = "Look behind"
+dialogue = ExtResource("9_eg0gh")
+cue = "hidden_ice"
+marker_height = 36.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/HiddenIce/Interactable" unique_id=1418093714]
+shape = SubResource("CircleShape2D_ice01")
 
 [node name="Player" type="CharacterBody2D" parent="World" unique_id=1676373879 instance=ExtResource("15_8nf23")]
 position = Vector2(-16, 56)
