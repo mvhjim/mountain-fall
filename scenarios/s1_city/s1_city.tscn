@@ -1,0 +1,304 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://scenarios/s1_city/s1_city.gd" id="1_kggie"]
+[ext_resource type="TileSet" path="res://assets/tiles/city_tileset.tres" id="2_ucco6"]
+[ext_resource type="Texture2D" path="res://assets/sprites/building_maja.png" id="3_lgs7r"]
+[ext_resource type="Texture2D" path="res://assets/sprites/building_berg.png" id="4_53bkc"]
+[ext_resource type="Texture2D" path="res://assets/sprites/building_tall.png" id="5_xsvti"]
+[ext_resource type="Texture2D" path="res://assets/sprites/building_even.png" id="6_5nxgb"]
+[ext_resource type="Texture2D" path="res://assets/sprites/car.png" id="7_e3jx8"]
+[ext_resource type="Script" path="res://core/interactable/interactable.gd" id="8_gul7e"]
+[ext_resource type="Resource" path="res://scenarios/s1_city/s1_city.dialogue" id="9_eg0gh"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mrs_berg.png" id="10_xhxj6"]
+[ext_resource type="Texture2D" path="res://assets/sprites/even.png" id="11_541bq"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mailbox.png" id="12_2b255"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tree.png" id="13_i135l"]
+[ext_resource type="Texture2D" path="res://assets/sprites/lamp.png" id="14_q3qb8"]
+[ext_resource type="PackedScene" path="res://core/player/player.tscn" id="15_8nf23"]
+[ext_resource type="Script" path="res://core/player/player.gd" id="16_7ymco"]
+[ext_resource type="Script" path="res://core/ui/hud.gd" id="17_ns26q"]
+[ext_resource type="Script" path="res://core/ui/inventory_panel.gd" id="18_lsu01"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cmpcw"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o4swx"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bwwhy"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rdh13"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jbcji"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ux4qm"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ne2dv"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_etuaq"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0sv1r"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ui16e"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t7cjx"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oygpd"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_idluc"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x3l6c"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_35bm1"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kb1qt"]
+radius = 2.0
+
+[node name="S1City" type="Node2D" unique_id=654137485]
+script = ExtResource("1_kggie")
+
+[node name="Floor" type="TileMapLayer" parent="." unique_id=773917496 groups=["floor"]]
+tile_map_data = PackedByteArray("AAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAALAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAANAAAAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAKAAEAAAAAAAAAAAALAAEAAAAAAAAAAAAMAAEAAAAAAAAAAAANAAEAAAAAAAAAAAAOAAEAAAAAAAAAAAAPAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAABAAAAAAAEAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAIAAIAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAABAAAAAAALAAIAAAAAAAAAAAAMAAIAAAAAAAAAAAANAAIAAAAAAAAAAAAOAAIAAAAAAAAAAAAPAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAADAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAGAAMAAAABAAAAAAAHAAMAAAAAAAAAAAAIAAMAAAAAAAAAAAAJAAMAAAAAAAAAAAAKAAMAAAAAAAAAAAALAAMAAAAAAAAAAAAMAAMAAAAAAAAAAAANAAMAAAAAAAAAAAAOAAMAAAABAAAAAAAPAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAABAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAJAAQAAAABAAAAAAAKAAQAAAAAAAAAAAALAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAANAAQAAAAAAAAAAAAOAAQAAAAAAAAAAAAPAAQAAAAAAAAAAAAAAAUAAAAEAAAAAAABAAUAAAAEAAAAAAACAAUAAAAEAAAAAAADAAUAAAAEAAAAAAAEAAUAAAAEAAAAAAAFAAUAAAAEAAAAAAAGAAUAAAAEAAAAAAAHAAUAAAAEAAAAAAAIAAUAAAAEAAAAAAAJAAUAAAAEAAAAAAAKAAUAAAAEAAAAAAALAAUAAAAEAAAAAAAMAAUAAAAEAAAAAAANAAUAAAAEAAAAAAAOAAUAAAAEAAAAAAAPAAUAAAAEAAAAAAAAAAYAAAACAAAAAAABAAYAAAACAAAAAAACAAYAAAACAAAAAAADAAYAAAACAAAAAAAEAAYAAAACAAAAAAAFAAYAAAACAAAAAAAGAAYAAAACAAAAAAAHAAYAAAACAAAAAAAIAAYAAAACAAAAAAAJAAYAAAACAAAAAAAKAAYAAAACAAAAAAALAAYAAAACAAAAAAAMAAYAAAACAAAAAAANAAYAAAACAAAAAAAOAAYAAAACAAAAAAAPAAYAAAACAAAAAAAAAAcAAAADAAAAAAABAAcAAAADAAAAAAACAAcAAAADAAAAAAADAAcAAAADAAAAAAAEAAcAAAADAAAAAAAFAAcAAAADAAAAAAAGAAcAAAADAAAAAAAHAAcAAAAGAAAAAAAIAAcAAAADAAAAAAAJAAcAAAADAAAAAAAKAAcAAAADAAAAAAALAAcAAAADAAAAAAAMAAcAAAADAAAAAAANAAcAAAADAAAAAAAOAAcAAAADAAAAAAAPAAcAAAADAAAAAAAAAAgAAAACAAAAAAABAAgAAAACAAAAAAACAAgAAAACAAAAAAADAAgAAAACAAAAAAAEAAgAAAACAAAAAAAFAAgAAAACAAAAAAAGAAgAAAACAAAAAAAHAAgAAAACAAAAAAAIAAgAAAACAAAAAAAJAAgAAAACAAAAAAAKAAgAAAACAAAAAAALAAgAAAACAAAAAAAMAAgAAAACAAAAAAANAAgAAAACAAAAAAAOAAgAAAACAAAAAAAPAAgAAAACAAAAAAAAAAkAAAAEAAAAAAABAAkAAAAEAAAAAAACAAkAAAAEAAAAAAADAAkAAAAEAAAAAAAEAAkAAAAEAAAAAAAFAAkAAAAEAAAAAAAGAAkAAAAEAAAAAAAHAAkAAAAEAAAAAAAIAAkAAAAEAAAAAAAJAAkAAAAEAAAAAAAKAAkAAAAEAAAAAAALAAkAAAAEAAAAAAAMAAkAAAAEAAAAAAANAAkAAAAEAAAAAAAOAAkAAAAEAAAAAAAPAAkAAAAEAAAAAAAAAAoAAAAAAAAAAAABAAoAAAAAAAAAAAACAAoAAAABAAAAAAADAAoAAAAAAAAAAAAEAAoAAAAAAAAAAAAFAAoAAAAAAAAAAAAGAAoAAAAAAAAAAAAHAAoAAAAAAAAAAAAIAAoAAAAAAAAAAAAJAAoAAAAAAAAAAAAKAAoAAAAAAAAAAAALAAoAAAAAAAAAAAAMAAoAAAAAAAAAAAANAAoAAAABAAAAAAAOAAoAAAAAAAAAAAAPAAoAAAAAAAAAAAAAAAsAAAAAAAAAAAABAAsAAAAAAAAAAAACAAsAAAAAAAAAAAADAAsAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAsAAAAAAAAAAAAGAAsAAAABAAAAAAAHAAsAAAAAAAAAAAAIAAsAAAAAAAAAAAAJAAsAAAAAAAAAAAAKAAsAAAAAAAAAAAALAAsAAAAAAAAAAAAMAAsAAAAAAAAAAAANAAsAAAAAAAAAAAAOAAsAAAAAAAAAAAAPAAsAAAAAAAAAAAAAAAwAAAAAAAAAAAABAAwAAAAAAAAAAAACAAwAAAAAAAAAAAADAAwAAAAAAAAAAAAEAAwAAAABAAAAAAAFAAwAAAAAAAAAAAAGAAwAAAAAAAAAAAAHAAwAAAAAAAAAAAAIAAwAAAAAAAAAAAAJAAwAAAAAAAAAAAAKAAwAAAAAAAAAAAALAAwAAAAAAAAAAAAMAAwAAAAAAAAAAAANAAwAAAAAAAAAAAAOAAwAAAAAAAAAAAABAA0AAAAAAAAAAAACAA0AAAAAAAAAAAADAA0AAAAAAAAAAAAEAA0AAAAAAAAAAAAFAA0AAAAAAAAAAAAGAA0AAAAAAAAAAAAHAA0AAAAAAAAAAAAIAA0AAAAAAAAAAAAJAA0AAAAAAAAAAAAKAA0AAAAAAAAAAAALAA0AAAAAAAAAAAAMAA0AAAAAAAAAAAANAA0AAAAAAAAAAAA=")
+tile_set = ExtResource("2_ucco6")
+
+[node name="World" type="Node2D" parent="." unique_id=451975918]
+y_sort_enabled = true
+
+[node name="MajaHouse" type="StaticBody2D" parent="World" unique_id=901539712]
+position = Vector2(16, 40)
+
+[node name="Sprite" type="Sprite2D" parent="World/MajaHouse" unique_id=491156029]
+texture = ExtResource("3_lgs7r")
+centered = false
+offset = Vector2(-48, -68)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="World/MajaHouse" unique_id=118391886]
+polygon = PackedVector2Array(0, -24, 48, 0, 0, 24, -48, 0)
+
+[node name="BergHouse" type="StaticBody2D" parent="World" unique_id=1193042277]
+position = Vector2(88, 76)
+
+[node name="Sprite" type="Sprite2D" parent="World/BergHouse" unique_id=1491531807]
+texture = ExtResource("4_53bkc")
+centered = false
+offset = Vector2(-40, -50)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="World/BergHouse" unique_id=1686973928]
+polygon = PackedVector2Array(8, -20, 40, -4, -8, 20, -40, 4)
+
+[node name="TallHouse" type="StaticBody2D" parent="World" unique_id=422053379]
+position = Vector2(208, 128)
+
+[node name="Sprite" type="Sprite2D" parent="World/TallHouse" unique_id=1966693423]
+texture = ExtResource("5_xsvti")
+centered = false
+offset = Vector2(-48, -94)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="World/TallHouse" unique_id=2094879537]
+polygon = PackedVector2Array(-16, -24, 48, 8, 16, 24, -48, -8)
+
+[node name="EvenHouse" type="StaticBody2D" parent="World" unique_id=312125688]
+position = Vector2(0, 176)
+
+[node name="Sprite" type="Sprite2D" parent="World/EvenHouse" unique_id=1353224119]
+texture = ExtResource("6_5nxgb")
+centered = false
+offset = Vector2(-48, -82)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="World/EvenHouse" unique_id=1770795076]
+polygon = PackedVector2Array(0, -24, 48, 0, 0, 24, -48, 0)
+
+[node name="Car" type="StaticBody2D" parent="World" unique_id=1556950939]
+position = Vector2(120, 156)
+
+[node name="Sprite" type="Sprite2D" parent="World/Car" unique_id=658315898]
+texture = ExtResource("7_e3jx8")
+centered = false
+offset = Vector2(-24, -28)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="World/Car" unique_id=293413879]
+polygon = PackedVector2Array(-8, -12, 24, 4, 8, 12, -24, -4)
+
+[node name="Interactable" type="Area2D" parent="World/Car" unique_id=1814564912]
+script = ExtResource("8_gul7e")
+display_name = "the car"
+verb = "Use"
+dialogue = ExtResource("9_eg0gh")
+cue = "car"
+marker_height = 22.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Car/Interactable" unique_id=1093804339]
+shape = SubResource("CircleShape2D_cmpcw")
+
+[node name="MrsBerg" type="StaticBody2D" parent="World" unique_id=443306842]
+position = Vector2(48, 88)
+
+[node name="Sprite" type="Sprite2D" parent="World/MrsBerg" unique_id=1526634637]
+texture = ExtResource("10_xhxj6")
+offset = Vector2(0, -11)
+
+[node name="Shape" type="CollisionShape2D" parent="World/MrsBerg" unique_id=1169851008]
+shape = SubResource("CircleShape2D_o4swx")
+
+[node name="Interactable" type="Area2D" parent="World/MrsBerg" unique_id=1066161689]
+script = ExtResource("8_gul7e")
+display_name = "Mrs. Berg"
+dialogue = ExtResource("9_eg0gh")
+cue = "berg"
+
+[node name="Shape" type="CollisionShape2D" parent="World/MrsBerg/Interactable" unique_id=244124840]
+shape = SubResource("CircleShape2D_bwwhy")
+
+[node name="Even" type="StaticBody2D" parent="World" unique_id=499993056]
+position = Vector2(48, 200)
+
+[node name="Sprite" type="Sprite2D" parent="World/Even" unique_id=1327761078]
+texture = ExtResource("11_541bq")
+offset = Vector2(0, -11)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Even" unique_id=900349903]
+shape = SubResource("CircleShape2D_rdh13")
+
+[node name="Interactable" type="Area2D" parent="World/Even" unique_id=986293452]
+script = ExtResource("8_gul7e")
+display_name = "Even"
+dialogue = ExtResource("9_eg0gh")
+cue = "even"
+
+[node name="Shape" type="CollisionShape2D" parent="World/Even/Interactable" unique_id=2010557281]
+shape = SubResource("CircleShape2D_jbcji")
+
+[node name="Mailbox" type="StaticBody2D" parent="World" unique_id=476778021]
+position = Vector2(80, 120)
+
+[node name="Sprite" type="Sprite2D" parent="World/Mailbox" unique_id=97345466]
+texture = ExtResource("12_2b255")
+offset = Vector2(0, -8)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Mailbox" unique_id=1247292503]
+shape = SubResource("CircleShape2D_ux4qm")
+
+[node name="Interactable" type="Area2D" parent="World/Mailbox" unique_id=759198626]
+script = ExtResource("8_gul7e")
+display_name = "the mailbox"
+verb = "Open"
+dialogue = ExtResource("9_eg0gh")
+cue = "mailbox"
+marker_height = 26.0
+
+[node name="Shape" type="CollisionShape2D" parent="World/Mailbox/Interactable" unique_id=156849657]
+shape = SubResource("CircleShape2D_ne2dv")
+
+[node name="Tree" type="StaticBody2D" parent="World" unique_id=1949698376]
+position = Vector2(-144, 88)
+
+[node name="Sprite" type="Sprite2D" parent="World/Tree" unique_id=1855584617]
+texture = ExtResource("13_i135l")
+offset = Vector2(0, -15)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Tree" unique_id=821235980]
+shape = SubResource("CircleShape2D_etuaq")
+
+[node name="@StaticBody2D@2" type="StaticBody2D" parent="World" unique_id=1002044991]
+position = Vector2(-96, 128)
+
+[node name="Sprite" type="Sprite2D" parent="World/@StaticBody2D@2" unique_id=1785632373]
+texture = ExtResource("13_i135l")
+offset = Vector2(0, -15)
+
+[node name="Shape" type="CollisionShape2D" parent="World/@StaticBody2D@2" unique_id=1168669932]
+shape = SubResource("CircleShape2D_0sv1r")
+
+[node name="@StaticBody2D@3" type="StaticBody2D" parent="World" unique_id=1959338820]
+position = Vector2(192, 160)
+
+[node name="Sprite" type="Sprite2D" parent="World/@StaticBody2D@3" unique_id=1979515542]
+texture = ExtResource("13_i135l")
+offset = Vector2(0, -15)
+
+[node name="Shape" type="CollisionShape2D" parent="World/@StaticBody2D@3" unique_id=1558953862]
+shape = SubResource("CircleShape2D_ui16e")
+
+[node name="@StaticBody2D@4" type="StaticBody2D" parent="World" unique_id=1937093786]
+position = Vector2(-80, 152)
+
+[node name="Sprite" type="Sprite2D" parent="World/@StaticBody2D@4" unique_id=655599625]
+texture = ExtResource("13_i135l")
+offset = Vector2(0, -15)
+
+[node name="Shape" type="CollisionShape2D" parent="World/@StaticBody2D@4" unique_id=1807411811]
+shape = SubResource("CircleShape2D_t7cjx")
+
+[node name="@StaticBody2D@5" type="StaticBody2D" parent="World" unique_id=1326477467]
+position = Vector2(-144, 120)
+
+[node name="Sprite" type="Sprite2D" parent="World/@StaticBody2D@5" unique_id=76057175]
+texture = ExtResource("13_i135l")
+offset = Vector2(0, -15)
+
+[node name="Shape" type="CollisionShape2D" parent="World/@StaticBody2D@5" unique_id=2119833894]
+shape = SubResource("CircleShape2D_oygpd")
+
+[node name="@StaticBody2D@6" type="StaticBody2D" parent="World" unique_id=1790603156]
+position = Vector2(128, 112)
+
+[node name="Sprite" type="Sprite2D" parent="World/@StaticBody2D@6" unique_id=1325767417]
+texture = ExtResource("13_i135l")
+offset = Vector2(0, -15)
+
+[node name="Shape" type="CollisionShape2D" parent="World/@StaticBody2D@6" unique_id=892607855]
+shape = SubResource("CircleShape2D_idluc")
+
+[node name="Lamp" type="StaticBody2D" parent="World" unique_id=1757258745]
+position = Vector2(-64, 48)
+
+[node name="Sprite" type="Sprite2D" parent="World/Lamp" unique_id=36488812]
+texture = ExtResource("14_q3qb8")
+offset = Vector2(0, -18)
+
+[node name="Shape" type="CollisionShape2D" parent="World/Lamp" unique_id=1180482331]
+shape = SubResource("CircleShape2D_x3l6c")
+
+[node name="@StaticBody2D@7" type="StaticBody2D" parent="World" unique_id=856694082]
+position = Vector2(96, 192)
+
+[node name="Sprite" type="Sprite2D" parent="World/@StaticBody2D@7" unique_id=465276673]
+texture = ExtResource("14_q3qb8")
+offset = Vector2(0, -18)
+
+[node name="Shape" type="CollisionShape2D" parent="World/@StaticBody2D@7" unique_id=1374779484]
+shape = SubResource("CircleShape2D_35bm1")
+
+[node name="@StaticBody2D@8" type="StaticBody2D" parent="World" unique_id=1726932342]
+position = Vector2(-16, 136)
+
+[node name="Sprite" type="Sprite2D" parent="World/@StaticBody2D@8" unique_id=1459054141]
+texture = ExtResource("14_q3qb8")
+offset = Vector2(0, -18)
+
+[node name="Shape" type="CollisionShape2D" parent="World/@StaticBody2D@8" unique_id=1435972161]
+shape = SubResource("CircleShape2D_kb1qt")
+
+[node name="Player" type="CharacterBody2D" parent="World" unique_id=1676373879 instance=ExtResource("15_8nf23")]
+position = Vector2(-16, 56)
+motion_mode = 1
+script = ExtResource("16_7ymco")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=147633188]
+script = ExtResource("17_ns26q")
+
+[node name="InventoryPanel" type="CanvasLayer" parent="." unique_id=1803816507]
+script = ExtResource("18_lsu01")
