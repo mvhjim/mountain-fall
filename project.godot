@@ -12,8 +12,19 @@ config_version=5
 
 config/name="Mountainfall"
 config/description="Four friends, one mountain cabin, and a guest nobody invited."
-run/main_scene="res://core/ui/boot.tscn"
+run/main_scene="res://core/ui/name_entry.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
+
+[autoload]
+
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+GameState="*res://core/game_state.gd"
+Inventory="*res://core/inventory.gd"
+
+[dialogue_manager]
+
+runtime/balloon_path="res://core/ui/dialogue/balloon.tscn"
+runtime/state_autoload_shortcuts=PackedStringArray("GameState")
 
 [display]
 
@@ -21,6 +32,10 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 
 [input]
 
@@ -77,8 +92,13 @@ cancel={
 ]
 }
 
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://scenarios/s1_city/s1_city.dialogue")
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.55, 0.68, 0.85, 1)

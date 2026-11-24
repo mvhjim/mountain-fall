@@ -1,0 +1,94 @@
+# Scenario 1: Collect the friends (part 1: Maja picks up Even)
+# {{maja}} etc. are the names the players typed in at the start.
+# Inventory.has("id"), Inventory.give("id"), Inventory.take("id") work with items.
+# flag("x") / set_flag("x") remember things during the scenario.
+
+~ intro
+{{maja}}: Finally! A whole week in a cabin in the mountains. No city, no traffic, no work.
+{{maja}}: First I pick up {{even}}, then {{sara}} and {{tom}}.
+{{maja}}: ...but I need my car keys. I lent the spare set to Mrs. Berg next door.
+=> END
+
+~ car
+if Inventory.has("car_keys") and flag("even_joined")
+	{{maja}}: Keys, check. {{even}}, check. Let's go!
+	=> drive_off
+elif Inventory.has("car_keys")
+	{{maja}}: I've got the keys, but I'm not leaving without {{even}}. He lives in the blue building across the road.
+else
+	{{maja}}: Locked. Mrs. Berg still has my keys.
+=> END
+
+~ drive_off
+{{even}}: Hey, I just looked at the booking for the cabin. It says "cabin for 5 guests".
+{{maja}}: Five? There are only four of us.
+{{even}}: So who is number five?
+{{maja}}: ...Probably a typo. Seatbelts on!
+$> finish()
+=> END
+
+~ berg
+if Inventory.has("car_keys")
+	Mrs. Berg: Drive safely, dear! And bring warm socks, the mountains are cold.
+	=> END
+if Inventory.has("post")
+	Mrs. Berg: Oh, my post! You're an angel.
+	$> Inventory.take("post")
+	Mrs. Berg: Now, your keys... here you are.
+	$> Inventory.give("car_keys")
+	Mrs. Berg: Funny thing. There was a postcard with a picture of a mountain cabin.
+	Mrs. Berg: It's addressed to "the fifth guest". No name. Is that for you?
+	- That's odd. What does it say?
+		Mrs. Berg: Just "See you up there. Save me a beer." And it smells of cigarettes.
+		{{maja}}: ...Weird.
+	- Not ours. Must be for another house.
+		Mrs. Berg: Hm. I'll keep it on the fridge, then.
+	$> set_flag("saw_postcard")
+	=> END
+Mrs. Berg: Hello, dear! Off on your big trip?
+- Yes! Do you still have my car keys?
+	Mrs. Berg: Of course. But my knees are bad today. Could you fetch my post from the mailbox by the road first?
+	{{maja}}: Sure, back in a minute.
+	$> set_flag("asked_for_post")
+- Just saying hi!
+	Mrs. Berg: Hello, hello! Don't forget your keys, dear.
+=> END
+
+~ mailbox
+if Inventory.has("post") or Inventory.has("car_keys")
+	{{maja}}: Empty now.
+elif flag("asked_for_post")
+	{{maja}}: Mrs. Berg's post. Some letters and a postcard.
+	$> Inventory.give("post")
+else
+	{{maja}}: Mrs. Berg's mailbox. Not mine to open.
+=> END
+
+~ even
+if flag("even_joined")
+	{{even}}: Coming, coming!
+	=> END
+{{even}}: {{maja}}! I'm almost ready. I just need to answer a few work emails first.
+{{even}}: Forty. Maybe a hundred.
+{{maja}}: You promised. No work this week.
+=> even_choice
+
+~ even_choice
+{{even}}: But what if something breaks while I'm away?
+- Your team will survive one week without you.
+	{{even}}: Will they, though?
+	{{maja}}: Yes. And your doctor told you to rest.
+	=> even_choice
+- Set an out-of-office reply. Right now.
+	{{even}}: "Out of office until next week. Please don't call." ...Send. Wow. That felt good.
+	$> set_flag("even_out_of_office")
+	=> even_leaves
+- Give me the laptop. It stays here.
+	{{even}}: My laptop? Fine. FINE. But I'm keeping my phone.
+	$> set_flag("even_left_laptop")
+	=> even_leaves
+
+~ even_leaves
+{{even}}: Okay. To the cabin! I'll wait in the car.
+$> even_joins()
+=> END

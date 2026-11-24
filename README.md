@@ -30,19 +30,49 @@ Everything works with the keyboard alone. Mouse support is added on top.
 | Interact, talk, pick up | E, Space, Enter | `interact` |
 | Cycle nearby targets | Tab | `cycle_target` |
 | Inventory | I | `inventory` |
-| Combine items | C | `combine` |
-| Back, close, menu | Esc | `cancel` |
+| Combine items (not used yet) | C | `combine` |
+| Back, close | Esc | `cancel` |
+| Pick a dialogue answer | Up/Down + Enter, or 1-9 | |
 
+Mouse: click the ground to walk there, click a person or object to walk to it and use it, click to continue dialogue.
 Menus use Godot's built-in `ui_*` actions (arrows, Enter, Esc).
 
 ## Folders
 
 ```
-core/         shared by all scenarios: player, interactables, UI, global state
-scenarios/    one folder per scenario: map, dialogue, items
-assets/       tiles, sprites, fonts, audio
-addons/       third-party Godot add-ons (Dialogue Manager comes later)
+core/                  shared by all scenarios
+  game_state.gd        names, falls (deaths), scores, story flags   (autoload GameState)
+  inventory.gd         items the active friend carries              (autoload Inventory)
+  item.gd              the Item resource (id, name, description, icon)
+  player/              the controllable friend: walking, clicking, falling off edges
+  interactable/        add as a child to anything you can talk to or use
+  ui/                  name entry screen, HUD, inventory window, dialogue box
+scenarios/
+  s1_city/             scenario 1: Maja collects the friends
+    s1_city.tscn       the map (open this in the editor)
+    s1_city.dialogue   all conversations, plain text
+    s1_city.gd         scenario logic called from dialogue ($> even_joins())
+    items/             items for this scenario
+assets/                tiles, sprites (placeholders for now), fonts, audio
+addons/                Dialogue Manager 4.2.0 by Nathan Hoad (MIT)
+tests/                 automated playthrough
+tools/                 placeholder art generator (Python, not part of the game)
 ```
+
+## Editing the game
+
+- **Map:** open `scenarios/s1_city/s1_city.tscn`. Select `Floor` to paint tiles (TileMap panel at the bottom). Objects live under `World`; drag them around. `World` sorts by height on screen, so things lower on screen draw in front.
+- **Dialogue:** open the **Dialogue** tab at the top of the editor, or edit `s1_city.dialogue` in any text editor. Use `{{maja}}`, `{{even}}`, `{{sara}}`, `{{tom}}` for the friends' names (players choose them). Don't name variables in scenario scripts `maja`, `even`, `sara` or `tom`, or dialogue will pick those up instead.
+- **People and objects you can use:** give them an `Interactable` child (see `MrsBerg` in the scene). Set its name, verb ("Talk to"), dialogue file and cue (the `~ cue` in the dialogue file).
+- **Items:** in the FileSystem dock, right-click `items/` > New Resource > Item. Register new items in the scenario script's `ITEMS` list.
+
+## Tests
+
+```
+godot --headless --path . res://tests/playthrough_s1.tscn
+```
+
+Plays scenario 1 from start to end (fall off an edge, get the keys, convince Even, drive off) and prints PASS/FAIL for each step.
 
 ## How we work
 
