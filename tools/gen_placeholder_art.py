@@ -338,4 +338,15 @@ icon(lambda d: (d.polygon([(2, 3), (6, 1), (14, 13), (12, 15)], fill=(240, 130, 
 icon(lambda d: [d.ellipse([x, y, x + 5, y + 5], fill=(40, 40, 46, 255)) for x, y in [(2, 9), (9, 9), (5, 3)]], "coal")
 icon(lambda d: (d.rectangle([2, 2, 13, 6], fill=(200, 50, 60, 255)), d.rectangle([9, 6, 13, 14], fill=(200, 50, 60, 255)),
                 d.line([(2, 4), (13, 4)], fill=(250, 250, 250, 255))), "scarf")
+# ================================================================ scenario 1: the road
+# the hidden bottles: a silvery bottle with a blue label
+icon(lambda d: [(d.rectangle([x, 5, x + 3, 14], fill=(215, 220, 228, 255), outline=(150, 156, 170, 255)),
+                 d.rectangle([x + 1, 2, x + 2, 5], fill=(215, 220, 228, 255)), d.rectangle([x, 8, x + 3, 10], fill=(40, 80, 170, 255)),
+                 d.point((x + 1, 1), fill=(200, 40, 40, 255))) for x in (1, 6, 11)], "smirnoff_ice")
+small(6, 12, lambda d: (d.rectangle([1, 4, 4, 11], fill=(215, 220, 228, 255), outline=(150, 156, 170, 255)),
+                        d.rectangle([2, 0, 3, 4], fill=(215, 220, 228, 255)), d.rectangle([1, 6, 4, 8], fill=(40, 80, 170, 255))), "bottle")
+small(14, 30, lambda d: (d.rectangle([6, 8, 7, 29], fill=(90, 90, 100, 255)), d.ellipse([1, 0, 12, 11], fill=(240, 200, 40, 255), outline=(120, 90, 20, 255)),
+                         d.rectangle([4, 4, 9, 7], fill=(40, 120, 60, 255))), "bus_stop")
+small(16, 24, lambda d: (d.rectangle([7, 10, 8, 23], fill=(110, 80, 50, 255)), d.polygon([(0, 2), (13, 2), (15, 6), (13, 10), (0, 10)], fill=(40, 120, 70, 255), outline=(230, 230, 230, 255)),
+                         d.polygon([(4, 8), (7, 4), (10, 8)], fill=(240, 244, 250, 255))), "road_sign")
 print("Placeholder art written to", ROOT / "assets")

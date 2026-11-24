@@ -1,0 +1,112 @@
+# Scenario 1, part 2: on the road. Maja drives, Even rides along, Sara and Tom get picked up.
+# {{maja}} etc. are the names the players typed in at the start.
+# $> friend_walks_to_car("sara") waits until the friend is at the car.
+# If Maja found the Smirnoff Ice in the city, each friend finds a bottle on their seat.
+
+~ intro
+{{maja}}: Next stop: {{sara}} at the bus stop. Then {{tom}}.
+{{even}}: Just follow the road. And please stay on it this time.
+{{maja}}: That was ONE time.
+=> END
+
+~ sara
+{{sara}}: {{maja}}! {{even}}! Over here!
+{{sara}}: I packed light, I promise. Just a backpack. And a suitcase. And a sled. And my keyboard.
+{{maja}}: Your keyboard?
+{{sara}}: For the cabin! Music makes everything better.
+{{even}}: The boot is already full of snacks.
+=> sara_choice
+
+~ sara_choice
+{{sara}}: So... what stays behind?
+- The sled. We can slide down the hill on trays.
+	{{sara}}: Sliding on trays! I love it. Bye, sled!
+	$> set_flag("sara_left_sled")
+	=> sara_joins
+- The keyboard. You can hum instead.
+	{{sara}}: Hum? For a whole week?
+	{{maja}}: You're a great hummer.
+	{{sara}}: ...I AM a great hummer. Fine!
+	$> set_flag("sara_left_keyboard")
+	=> sara_joins
+- Nothing. {{even}} can sit on the sled.
+	{{even}}: Excuse me?
+	{{sara}}: Perfect, it's decided!
+	$> set_flag("even_on_sled")
+	=> sara_joins
+
+~ sara_joins
+{{sara}}: Here I come!
+$> friend_walks_to_car("sara")
+if Inventory.has("smirnoff_ice")
+	=> ice_sara
+$> friend_gets_in("sara")
+=> END
+
+~ ice_sara
+{{sara}}: Ooh, a present on my seat! Is it chocolate?
+{{sara}}: ...It's a Smirnoff Ice. Oh no. Oh NO.
+{{maja}}: Rules are rules, {{sara}}.
+{{sara}}: At a bus stop? In front of everybody?
+{{maja}}: One knee. One gulp. Go.
+$> drink_ice("sara")
+{{sara}}: Bleh. So sweet. ...A man on the bus just gave me a thumbs up, though.
+$> friend_gets_in("sara")
+=> END
+
+~ tom
+{{tom}}: Halt! Who goes there?
+{{maja}}: It's us, {{tom}}. Get in.
+{{tom}}: Not so fast. Only those who know the secret password may enter this car.
+{{maja}}: It's MY car.
+=> tom_choice
+
+~ tom_choice
+{{tom}}: The password, please.
+- Snacks?
+	{{tom}}: Good guess. But no.
+	=> tom_choice
+- Mountain?
+	{{tom}}: Too obvious. Try again.
+	=> tom_choice
+- There is no password. Get in or walk.
+	{{tom}}: ...That was the password. Welcome aboard!
+	=> tom_news
+
+~ tom_news
+{{tom}}: Oh, weird thing. This morning a guy was hitchhiking up the mountain road.
+{{tom}}: Old ski suit. Beer in one hand, cigarette in the other.
+{{even}}: Wait. Like the fifth guest?
+{{tom}}: The what?
+{{maja}}: Nothing. Probably nothing.
+$> friend_walks_to_car("tom")
+if Inventory.has("smirnoff_ice")
+	=> ice_tom
+$> friend_gets_in("tom")
+=> END
+
+~ ice_tom
+{{tom}}: Shotgun! Wait. Why is there a bottle on the... no. No, no, no.
+if flag("iced_even") and flag("iced_sara")
+	{{even}}: Welcome to the club. We both got one.
+elif flag("iced_sara")
+	{{sara}}: Ha! I had to do it at the bus stop!
+{{tom}}: Fine. For the honour of the trip.
+$> drink_ice("tom")
+{{tom}}: ...I can taste every colour of the rainbow. Mostly the bad ones.
+$> friend_gets_in("tom")
+=> END
+
+~ mountain_sign
+if flag("sara_joined") and flag("tom_joined")
+	{{maja}}: Everyone's in. Mountains, here we come!
+	if Inventory.has("smirnoff_ice")
+		{{maja}}: There's still a bottle of Smirnoff Ice left. I'll save it for whoever turns up next.
+	$> finish()
+elif flag("sara_joined")
+	{{maja}}: Not without {{tom}}. The house by the road, a bit further on.
+elif flag("tom_joined")
+	{{maja}}: We forgot {{sara}}! The bus stop, back there.
+else
+	{{maja}}: I can't leave without {{sara}} and {{tom}}.
+=> END

@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://b3ckbu8x8dsrh"
+path="res://.godot/imported/s1_road.dialogue-d0cf5e437976d48079f51c2e289b2c47.tres"
+
+[deps]
+
+source_file="res://scenarios/s1_city/s1_road.dialogue"
+dest_files=["res://.godot/imported/s1_road.dialogue-d0cf5e437976d48079f51c2e289b2c47.tres"]
+
+[params]
+
+defaults=true

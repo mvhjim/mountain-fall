@@ -1,4 +1,5 @@
-# Scenario 1: Collect the friends (part 1: Maja picks up Even)
+# Scenario 1: Collect the friends (part 1: Maja picks up Even in the city)
+# Part 2 (Sara and Tom along the road) is in s1_road.dialogue.
 # {{maja}} etc. are the names the players typed in at the start.
 # Inventory.has("id"), Inventory.give("id"), Inventory.take("id") work with items.
 # flag("x") / set_flag("x") remember things during the scenario.
@@ -90,5 +91,27 @@ if flag("even_joined")
 
 ~ even_leaves
 {{even}}: Okay. To the cabin! I'll wait in the car.
-$> even_joins()
+$> friend_walks_to_car("even")
+if Inventory.has("smirnoff_ice")
+	=> ice_even
+$> friend_gets_in("even")
+=> END
+
+~ ice_even
+{{even}}: Wait. There's something on my seat.
+{{even}}: A Smirnoff Ice. {{maja}}. Why is there a Smirnoff Ice on my seat?
+{{maja}}: You found it. You know the rules.
+{{even}}: I've been on holiday for forty seconds!
+$> drink_ice("even")
+{{even}}: ...On one knee. In one gulp. In front of my own building. My neighbours saw that.
+{{maja}}: Welcome to holiday mode.
+$> friend_gets_in("even")
+=> END
+
+~ hidden_ice
+{{maja}}: Huh? Someone hid something behind this tree.
+{{maja}}: Three bottles of Smirnoff Ice. Still cold!
+{{maja}}: Everybody knows the rules. If you find one, you drink it. On one knee. In one gulp.
+{{maja}}: I'll hide one on each of my friends' seats. This is going to be a great trip.
+$> take_hidden_ice()
 => END

@@ -5,6 +5,7 @@ extends CanvasLayer
 
 const NAME_ENTRY := "res://core/ui/name_entry.tscn"
 const S1 := "res://scenarios/s1_city/s1_city.tscn"
+const S1_ROAD := "res://scenarios/s1_city/s1_road.tscn"
 const TURN_SCENARIOS := [
 	["Scenario 2: arrival", "res://scenarios/s2_cabin/s2_cabin.tscn"],
 	["Scenario 3: challenges", "res://scenarios/s3_challenges/s3_challenges.tscn"],
@@ -83,6 +84,7 @@ func _build() -> void:
 	_box.add_child(top)
 	_button(top, "Name screen", _jump.bind(NAME_ENTRY, 0, false))
 	_button(top, "Scenario 1: the city", _jump.bind(S1, 0, false))
+	_button(top, "Scenario 1: the road", _jump.bind(S1_ROAD, 0, false))
 
 	for sc in TURN_SCENARIOS:
 		_label(sc[0], 18, Color(1, 0.75, 0.45))
@@ -102,6 +104,10 @@ func _build() -> void:
 		_button(now, "Skip this turn", func():
 			close()
 			scene.debug_skip_turn())
+	if scene and scene.has_method("debug_give_ice"):
+		_button(now, "Get Smirnoff Ice", func():
+			close()
+			scene.debug_give_ice())
 	_button(now, "+100 points", func():
 		GameState.add_score(100, "Debug points"))
 	_button(now, "Reset points + falls", func():

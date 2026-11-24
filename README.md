@@ -50,12 +50,17 @@ core/                  shared by all scenarios
   ui/                  name entry screen, HUD, inventory window, dialogue box
 scenarios/
   s1_city/             scenario 1: Maja collects the friends (single player intro)
-    s1_city.tscn       the map (open this in the editor)
+    s1_city.tscn       part 1, the city: Maja gets her keys and picks up Even
     s1_city.dialogue   all conversations, plain text
-    s1_city.gd         scenario logic called from dialogue ($> even_joins())
+    s1_city.gd         scenario logic called from dialogue ($> take_hidden_ice())
+    s1_road.tscn       part 2, the road: Maja drives the car and picks up Sara and Tom
+    s1_road.dialogue   the road conversations, and the Smirnoff Ice pranks
+    s1_road.gd         road logic: the player is the car here
     items/             items for this scenario
   s2_cabin/            scenario 2: arrival at the cabin, one turn per friend, scoring
   s3_challenges/       scenario 3: day 2 challenges, Gutten joins dinner, final score
+core/pickup_scene.gd   shared by both parts of scenario 1: friends walk to the car and get in
+core/ice_prank.gd      the Smirnoff Ice prank: one knee, one gulp
 core/turn_scenario.gd  the shared turn system for scenarios 2 and 3 (turns, points, Gutten)
 core/ui/debug_menu.gd  the F2 debug menu                            (autoload DebugMenu)
 core/gutten/           Gutten, the hidden fifth friend, and the SafeZone he gives up at
@@ -85,12 +90,13 @@ tools/                 placeholder art generator (Python, not part of the game)
 
 ```
 godot --headless --path . res://tests/playthrough_s1.tscn
+godot --headless --path . res://tests/playthrough_s1_road.tscn
 godot --headless --path . res://tests/playthrough_s2.tscn
 godot --headless --path . res://tests/playthrough_s3.tscn
 godot --headless --path . res://tests/debug_menu.tscn
 ```
 
-Each one plays a scenario from start to end and prints PASS/FAIL for each step. Scenario 1 covers falling off an edge, getting the keys, convincing Even and driving off. Scenario 2 covers all four turns, Gutten from the cellar and from beer + cigarettes, and the scoreboard. Scenario 3 covers all four challenges, Gutten, the dinner reveal and the final score. The debug menu test checks F2, jumping to a turn and skipping a turn.
+Each one plays a scenario from start to end and prints PASS/FAIL for each step. Scenario 1 covers falling off an edge, finding the hidden Smirnoff Ice, getting the keys, convincing Even (who gets pranked) and driving on to the road. The road test drives off an edge, picks up Sara and Tom (both pranked), and checks the end card. Scenario 2 covers all four turns, Gutten from the cellar and from beer + cigarettes, and the scoreboard. Scenario 3 covers all four challenges, Gutten, the dinner reveal and the final score. The debug menu test checks F2, jumping to a turn and skipping a turn.
 
 ## Debug menu
 
