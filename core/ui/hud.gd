@@ -35,6 +35,8 @@ func _ready() -> void:
 	_toast.modulate.a = 0.0
 	GameState.toast.connect(_show_toast)
 	GameState.deaths_changed.connect(func(_id, _n): _update_who())
+	GameState.score_changed.connect(func(_id, _n): _update_who())
+	GameState.friend_changed.connect(func(_id): _update_who())
 	_update_who()
 
 
@@ -49,6 +51,8 @@ func _process(_delta: float) -> void:
 func _update_who() -> void:
 	var id := GameState.active_friend
 	_who.text = "%s    Falls: %d" % [GameState.name_of(id), GameState.deaths[id]]
+	if GameState.scoring:
+		_who.text += "    Points: %d" % GameState.scores[id]
 
 
 func _show_toast(text: String) -> void:

@@ -18,6 +18,7 @@ var _last_safe: Vector2
 var _falling := false
 var _floor: TileMapLayer
 var _bob := 0.0
+var _was_moving := false
 
 @onready var sprite: Sprite2D = $Sprite
 @onready var reach: Area2D = $Reach
@@ -54,8 +55,9 @@ func _physics_process(delta: float) -> void:
 				dir = to.normalized()
 	velocity = dir * speed
 	move_and_slide()
-	if dir != Vector2.ZERO and not _targets.is_empty():
+	if (dir != Vector2.ZERO or _was_moving) and not _targets.is_empty():
 		_select(_nearest())  # walking picks the closest target again
+	_was_moving = dir != Vector2.ZERO
 	_animate(delta, dir)
 	if _move_target != null and get_slide_collision_count() > 0 and velocity.length() < 1.0:
 		_move_target = null  # blocked by something
@@ -75,6 +77,42 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		get_viewport().set_input_as_handled()
 		_on_click(get_global_mouse_position())
+
+
+## Switch which friend this player is (used between turns).
+func set_friend(id: String) -> void:
+	friend_id = id
+	GameState.active_friend = id
+	var tex := load("res://assets/sprites/%s.png" % id)
+	if tex:
+		sprite.texture = tex
+
+
+## Put the player somewhere, e.g. at the start of a turn.
+func teleport(pos: Vector2) -> void:
+	global_position = pos
+	_last_safe = pos
+	_move_target = null
+	_pending_interact = null
+	velocity = Vector2.ZERO
+	$Camera.reset_smoothing()
+
+
+## Something (Gutten!) drags you off the edge. Counts as a fall.
+func drag_off(toward: Vector2) -> void:
+	if _falling:
+		return
+	var away := (global_position - toward).normalized()
+	if away == Vector2.ZERO:
+		away = Vector2.DOWN
+	var t := create_tween()
+	t.tween_property(self, "global_position", global_position + away * 30, 0.25)
+	await t.finished
+	_fall()
+
+
+func is_falling() -> bool:
+	return _falling
 
 
 func selected_prompt() -> String:

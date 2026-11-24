@@ -59,9 +59,9 @@ func _show_end_card() -> void:
 	box.add_theme_constant_override("separation", 14)
 	layer.add_child(box)
 	var lines := [
-		["End of the test slice", 40, Color.WHITE],
+		["On the road!", 40, Color.WHITE],
 		["%s and %s are on their way." % [GameState.maja, GameState.even], 22, Color(1, 0.75, 0.45)],
-		["Next time: picking up %s and %s." % [GameState.sara, GameState.tom], 20, Color(0.85, 0.9, 1)],
+		["(Picking up %s and %s comes in a later version.)" % [GameState.sara, GameState.tom], 18, Color(0.85, 0.9, 1)],
 		["Falls: %d" % GameState.deaths["maja"], 22, Color(0.85, 0.9, 1)],
 	]
 	for l in lines:
@@ -71,11 +71,11 @@ func _show_end_card() -> void:
 		label.add_theme_font_size_override("font_size", l[1])
 		label.add_theme_color_override("font_color", l[2])
 		box.add_child(label)
-	var again := Button.new()
-	again.text = "Play again"
-	again.add_theme_font_size_override("font_size", 24)
-	again.pressed.connect(func():
+	var next := Button.new()
+	next.text = "Continue to the cabin"
+	next.add_theme_font_size_override("font_size", 24)
+	next.pressed.connect(func():
 		GameState.unlock()
-		get_tree().change_scene_to_file("res://core/ui/name_entry.tscn"))
-	box.add_child(again)
-	again.grab_focus()
+		get_tree().change_scene_to_file("res://scenarios/s2_cabin/s2_cabin.tscn"))
+	box.add_child(next)
+	next.grab_focus()

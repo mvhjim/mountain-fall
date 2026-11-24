@@ -4,7 +4,9 @@ extends Node
 ## Dialogue files can use these directly, e.g. {{maja}}: Hello!  or  if flag("got_keys")
 
 signal deaths_changed(friend_id: String, count: int)
+signal score_changed(friend_id: String, total: int)
 signal toast(text: String)
+signal friend_changed(friend_id: String)
 
 const FRIENDS: Array[String] = ["maja", "even", "sara", "tom"]
 const DEFAULT_NAMES := {"maja": "Maja", "even": "Even", "sara": "Sara", "tom": "Tom"}
@@ -14,7 +16,13 @@ var deaths: Dictionary = {}
 var scores: Dictionary = {}
 var flags: Dictionary = {}
 ## Which friend the player is controlling right now.
-var active_friend: String = "maja"
+var active_friend: String = "maja":
+	set(value):
+		active_friend = value
+		friend_changed.emit(value)
+## When true, falls cost points (scenarios with turns and scoring).
+var scoring := false
+const FALL_PENALTY := 20
 ## True while dialogue, menus or a fall is in progress. The player ignores input then.
 var input_locked: bool:
 	get:
@@ -31,6 +39,9 @@ var sara: String:
 	get: return names.sara
 var tom: String:
 	get: return names.tom
+## The name of whoever is playing right now.  {{me}}: I'm cold.
+var me: String:
+	get: return names[active_friend]
 
 
 func _ready() -> void:
@@ -63,6 +74,17 @@ func set_flag(key: String, value: bool = true) -> void:
 func add_death(id: String = active_friend) -> void:
 	deaths[id] += 1
 	deaths_changed.emit(id, deaths[id])
+	if scoring:
+		add_score(-FALL_PENALTY, "", id)
+
+
+## Give (or take) points. Shows a pop-up when a reason is given.
+## Dialogue example:  $> add_score(25, "Nice!")
+func add_score(points: int, reason: String = "", id: String = active_friend) -> void:
+	scores[id] += points
+	score_changed.emit(id, scores[id])
+	if reason != "":
+		show_toast("%s%d  %s" % ["+" if points >= 0 else "", points, reason])
 
 
 func show_toast(text: String) -> void:
