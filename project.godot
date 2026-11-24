@@ -20,6 +20,7 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 GameState="*res://core/game_state.gd"
 Inventory="*res://core/inventory.gd"
+DebugMenu="*res://core/ui/debug_menu.gd"
 
 [dialogue_manager]
 
@@ -94,7 +95,7 @@ cancel={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://scenarios/s1_city/s1_city.dialogue", "res://scenarios/s2_cabin/s2_cabin.dialogue")
+locale/translations_pot_files=PackedStringArray("res://scenarios/s1_city/s1_city.dialogue", "res://scenarios/s2_cabin/s2_cabin.dialogue", "res://scenarios/s3_challenges/s3_challenges.dialogue")
 
 [rendering]
 

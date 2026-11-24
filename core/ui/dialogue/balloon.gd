@@ -104,7 +104,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		if index >= 0 and index < items.size() and not items[index].disabled:
 			get_viewport().set_input_as_handled()
 			items[index].grab_focus()
-			_on_responses_menu_response_selected(dialogue_line.responses[index])
+			# items only holds the answers that are shown, so ask the item which answer it is
+			_on_responses_menu_response_selected(items[index].get_meta("response"))
 			return
 	# Only the balloon is allowed to handle input while it's showing
 	if will_block_other_input:

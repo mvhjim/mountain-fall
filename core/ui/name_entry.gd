@@ -63,7 +63,7 @@ func _ready() -> void:
 	_go.add_theme_font_size_override("font_size", 28)
 	_go.pressed.connect(_start)
 	center.add_child(_go)
-	center.add_child(_text("Enter: next    Up/Down: move    Enter on \"Let's go!\" to start", 14, Color(0.6, 0.65, 0.75)))
+	center.add_child(_text("Enter: next    Up/Down: move    Enter on \"Let's go!\" to start    F2: debug menu", 14, Color(0.6, 0.65, 0.75)))
 
 	# Up/Down move between rows
 	for i in _edits.size():

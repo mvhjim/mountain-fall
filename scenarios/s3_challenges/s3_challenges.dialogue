@@ -1,0 +1,266 @@
+# Scenario 3: Day 2, challenges at the cabin. Four turns, one challenge per friend.
+# {{me}} is the friend playing right now. active_friend is their id ("maja", "even", "sara", "tom").
+# complete_task(extra) ends the turn: 100 points + speed bonus + extra for doing it well.
+# wake_gutten("NodeName") wakes Gutten at that object. show_node / hide_node show or hide objects.
+
+# ---------------------------------------------------------------- turn intros
+~ maja_turn
+{{maja}}: Day two! Everyone gets a challenge today. Best result wins.
+{{maja}}: Mine: the perfect photo from the lookout, up north past the shed.
+{{maja}}: There's an old camera in the car's glovebox.
+=> END
+
+~ even_turn
+{{even}}: Dinner is on me. Well, the fish part.
+{{even}}: The owner's rod should be in the shed, and worms like it under woodpiles.
+=> END
+
+~ sara_turn
+{{sara}}: Chef {{sara}}, reporting for duty!
+{{sara}}: Potatoes from the shed, herbs from the bush by the cliff, and whatever's in the cooler.
+=> END
+
+~ tom_turn
+{{tom}}: Snowman contest. I'm the only contestant, so I'm already winning.
+{{tom}}: A nose, eyes and a scarf. Then I build it at the snow pile by the path.
+=> END
+
+# ---------------------------------------------------------------- the reveal
+~ evening
+{{sara}}: Dinner is served!
+{{tom}}: With a snowman guarding the door.
+{{even}}: Hey. Who set five plates again?
+Voice from the cellar: *hic* ...is that dinner I smell?
+{{maja}}: ...the cellar.
+$> reveal_gutten()
+Gutten: Evening, all! The name's Gutten.
+Gutten: I've lived in that cellar since nineteen eighty-seven. Peace and quiet, you know.
+Gutten: The owner's my cousin. She said four nice city folks were coming, so I set the table.
+if flag("photo_clue")
+	{{maja}}: The smoke in my photo! That was you!
+	Gutten: Guilty. Lovely picture, though.
+{{even}}: So when you chased us around the yard...
+Gutten: Chased? I just wanted to borrow a lighter! You city folks run fast.
+{{tom}}: Well... pull up a chair, Gutten.
+Gutten: Cheers! Now then. Who did best up here?
+=> END
+
+# ---------------------------------------------------------------- Maja: the photo
+~ car
+if active_friend == "maja" and not Inventory.has("camera") and not flag("photo_done")
+	{{me}}: The glovebox... an old film camera. One shot left!
+	$> Inventory.give("camera")
+else
+	{{me}}: Our car. It's snowed in a bit overnight.
+=> END
+
+~ lookout
+if flag("photo_done")
+	{{me}}: What a view. The whole valley, and the tiny city far away.
+elif Inventory.has("camera")
+	{{me}}: The view is amazing. One shot left. What should I take?
+	- The valley in the morning sun
+		{{me}}: Click. Postcard perfect.
+		$> set_flag("photo_done")
+		$> complete_task(20)
+	- A selfie with the mountains
+		{{me}}: Click. Hair: windswept. Smile: perfect.
+		$> set_flag("photo_done")
+		$> complete_task(30)
+	- That odd smoke coming from the cellar vent
+		{{me}}: Click. Wait... who's smoking down there?
+		$> set_flag("photo_done")
+		$> set_flag("photo_clue")
+		$> complete_task(50)
+else
+	{{me}}: A lookout over the whole valley. If only I had a camera.
+=> END
+
+# ---------------------------------------------------------------- Even: the fish
+~ shed
+if active_friend == "even" and not Inventory.has("fishing_rod") and not flag("fish_done")
+	{{me}}: Skis, a sled... and a fishing rod. Got it!
+	$> Inventory.give("fishing_rod")
+elif active_friend == "sara" and not Inventory.has("potatoes") and not flag("dinner_done")
+	{{me}}: A bag of potatoes. Dinner is starting to happen.
+	$> Inventory.give("potatoes")
+else
+	{{me}}: The shed. Skis, a sled, tools and a bag of potatoes.
+=> END
+
+~ woodpile
+if active_friend == "even" and not Inventory.has("worms") and not flag("fish_done")
+	{{me}}: Under the logs... worms! Sorry, little guys.
+	$> Inventory.give("worms")
+else
+	{{me}}: The woodpile. A bit smaller after last night's fire.
+=> END
+
+~ stream
+if active_friend == "even" and flag("fish_done")
+	{{me}}: That's enough fishing for one day.
+elif active_friend == "even" and Inventory.has("fishing_rod") and Inventory.has("worms")
+	{{me}}: Worm on the hook, line in the water... The float bobs!
+	- Pull right away!
+		{{me}}: A tiny fish. Tiny. But it counts!
+		$> set_flag("fish_caught")
+		$> set_flag("fish_done")
+		$> complete_task(10)
+	- Wait for it... now!
+		{{me}}: A big fat trout! Dinner is saved!
+		$> set_flag("fish_caught")
+		$> set_flag("fish_done")
+		$> complete_task(40)
+	- Wait for a REALLY big one
+		{{me}}: It's heavy... it's... an old ski boot.
+		{{me}}: Does a boot count? It's a boot.
+		$> set_flag("fish_done")
+		$> complete_task(0)
+elif active_friend == "even" and Inventory.has("fishing_rod")
+	{{me}}: I need bait. Worms like it under woodpiles.
+elif active_friend == "even"
+	{{me}}: Plenty of fish in there. I need the rod from the shed.
+else
+	{{me}}: The little stream. Ice cold and crystal clear.
+=> END
+
+# ---------------------------------------------------------------- Sara: dinner
+~ bush
+if active_friend == "sara" and not Inventory.has("herbs") and not flag("dinner_done")
+	{{me}}: Juniper and wild thyme. Smells amazing.
+	$> Inventory.give("herbs")
+else
+	{{me}}: A juniper bush, right by the edge. Careful.
+=> END
+
+~ cooler
+{{me}}: The cooler. Still full of somebody's beer.
+- Take the fish [if active_friend == "sara" and flag("fish_caught") and not Inventory.has("fish") and not flag("dinner_done") /]
+	{{me}}: {{even}}'s catch. Nice one!
+	$> Inventory.give("fish")
+- Take a carrot [if active_friend == "tom" and not Inventory.has("carrot") and not flag("snowman_done") /]
+	{{me}}: A carrot. The perfect nose.
+	$> Inventory.give("carrot")
+- Take a beer [if not Inventory.has("beer") /]
+	$> Inventory.give("beer")
+- Close it
+=> END
+
+~ stove
+if active_friend == "tom" and not Inventory.has("coal") and not flag("snowman_done")
+	{{me}}: Two lumps of coal from the ash box. Eyes!
+	$> Inventory.give("coal")
+elif flag("dinner_done")
+	{{me}}: Something smells really good in here.
+elif active_friend == "sara" and Inventory.has("potatoes") and Inventory.has("herbs") and (Inventory.has("fish") or not flag("fish_caught"))
+	if not flag("fish_caught")
+		{{me}}: No fish today. Potato stew it is!
+	{{me}}: Everything's in the pot. Now, the seasoning...
+	- Salt and pepper. A classic.
+		{{me}}: Simple and good.
+		$> complete_task(20)
+	- Lots of juniper. Mountain style!
+		{{me}}: Oh, that's GOOD.
+		$> complete_task(40)
+	- A splash of beer [if Inventory.has("beer") /]
+		{{me}}: Secret ingredient! Grandma would be proud.
+		$> Inventory.take("beer")
+		$> complete_task(50)
+	$> Inventory.take("potatoes")
+	$> Inventory.take("herbs")
+	$> Inventory.take("fish")
+	$> set_flag("dinner_done")
+elif active_friend == "sara"
+	{{me}}: I need potatoes from the shed, herbs from the bush, and the fish from the cooler.
+else
+	{{me}}: The stove. Nice and warm since last night.
+=> END
+
+# ---------------------------------------------------------------- Tom: the snowman
+~ clothesline
+if active_friend == "tom" and not Inventory.has("scarf") and not flag("snowman_done")
+	{{me}}: A red scarf, frozen stiff. The snowman won't mind.
+	$> Inventory.give("scarf")
+else
+	{{me}}: Someone's laundry. An old ski suit, frozen solid.
+=> END
+
+~ snowpile
+if active_friend == "tom" and Inventory.has("carrot") and Inventory.has("coal") and Inventory.has("scarf")
+	{{me}}: Roll, roll, roll... and stack! Now the face.
+	- A big happy smile
+		{{me}}: Look at him. He loves it here.
+		$> complete_task(20)
+	- Grumpy eyebrows
+		{{me}}: He looks like he hates Mondays. Perfect.
+		$> complete_task(30)
+	- Make it look like {{maja}}
+		{{me}}: It's uncanny. {{maja}}'s going to love it. Probably.
+		$> complete_task(40)
+	$> Inventory.take("carrot")
+	$> Inventory.take("coal")
+	$> Inventory.take("scarf")
+	$> set_flag("snowman_done")
+	$> hide_node("SnowPile")
+	$> show_node("Snowman")
+elif active_friend == "tom"
+	{{me}}: Perfect snowman snow. I need a nose, eyes and a scarf.
+else
+	{{me}}: A big pile of fresh snow. Perfect for a snowman.
+=> END
+
+~ snowman
+{{me}}: The snowman. It's watching me.
+=> END
+
+# ---------------------------------------------------------------- everyone
+~ sign
+{{me}}: A new note from the owner: "Hope you slept well! The fishing rod is in the shed."
+{{me}}: "P.S. If you hear snoring from the cellar, it's just the pipes. Do NOT open the cellar."
+=> END
+
+~ cabin_door
+{{me}}: Warm and cozy inside. No time for a nap, though!
+=> END
+
+~ frog_stone
+{{me}}: The frog stone. No more keys under it.
+=> END
+
+~ stone
+% {{me}}: Just a stone. Still very grey.
+% {{me}}: A stone. It hasn't moved since yesterday.
+% {{me}}: Nothing under this one but snow.
+=> END
+
+~ fusebox
+{{me}}: All the switches are on. Except switch C. Better leave that one.
+=> END
+
+~ barrel
+{{me}}: The water barrel, full to the top.
+=> END
+
+# ---------------------------------------------------------------- Gutten
+~ cellar
+if gutten_awake()
+	{{me}}: The hatch is wide open. It smells of beer and cigarettes down there.
+	=> END
+{{me}}: The cellar hatch. Is that... snoring?
+- Open it anyway
+	{{me}}: Creeeeak...
+	Voice from below: Who's there?! Got a lighter?!
+	$> wake_gutten("Cellar")
+- Leave it alone
+	{{me}}: Just the pipes. Sure.
+=> END
+
+~ bench
+if Inventory.has("cigarettes")
+	{{me}}: Just a bench.
+	=> END
+{{me}}: Another crumpled pack of cigarettes under the bench. Someone smokes a lot.
+- Take it
+	$> Inventory.give("cigarettes")
+- Leave it
+=> END

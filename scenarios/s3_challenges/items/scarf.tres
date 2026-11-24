@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/item.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://assets/sprites/item_scarf.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = "scarf"
+display_name = "Scarf"
+description = "A red woolly scarf from the clothesline."
+icon = ExtResource("2_icon")
