@@ -196,6 +196,7 @@ alignment = 1
 script = ExtResource("3_72ixx")
 response_template = NodePath("ResponseExample")
 auto_focus_first_item = false
+hide_failed_responses = true
 
 [node name="ResponseExample" type="Button" parent="Balloon/CenterContainer/ResponsesMenu" unique_id=1446810977]
 layout_mode = 2

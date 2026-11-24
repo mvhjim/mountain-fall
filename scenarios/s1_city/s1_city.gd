@@ -16,6 +16,7 @@ const ITEMS := [
 
 func _ready() -> void:
 	GameState.active_friend = "maja"
+	GameState.scoring = false
 	Inventory.register(ITEMS)
 	await get_tree().create_timer(0.6).timeout
 	DialogueManager.show_dialogue_balloon(DIALOGUE, "intro")

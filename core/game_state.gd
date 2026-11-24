@@ -29,6 +29,8 @@ var input_locked: bool:
 		return _lock_count > 0
 
 var _lock_count := 0
+## Set by the debug menu: which turn (0-3) a turn scenario starts at. 4 = skip to the evening.
+var debug_start_turn := 0
 
 # Short names for dialogue files: {{maja}} gives the name the players typed in.
 var maja: String:
@@ -93,6 +95,11 @@ func show_toast(text: String) -> void:
 
 func lock() -> void:
 	_lock_count += 1
+
+
+## Forget all locks, e.g. when the debug menu jumps to another scene mid-dialogue.
+func clear_locks() -> void:
+	_lock_count = 0
 
 
 func unlock() -> void:

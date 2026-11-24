@@ -310,4 +310,32 @@ icon(lambda d: (d.rectangle([5, 3, 10, 14], fill=(210, 170, 60, 255)), d.rectang
                 d.rectangle([6, 1, 9, 3], fill=(180, 180, 180, 255))), "beer")
 icon(lambda d: (d.rectangle([3, 4, 12, 13], fill=(240, 240, 240, 255), outline=(120, 120, 120, 255)), d.rectangle([3, 4, 12, 7], fill=(60, 110, 60, 255)),
                 d.rectangle([6, 1, 7, 4], fill=(250, 250, 250, 255)), d.rectangle([9, 2, 10, 4], fill=(230, 180, 120, 255))), "cigarettes")
+# ================================================================ scenario 3: challenges
+# lookout: a little flag pole with a coin telescope
+small(16, 30, lambda d: (d.rectangle([3, 4, 4, 29], fill=(110, 80, 50, 255)), d.polygon([(5, 4), (15, 8), (5, 12)], fill=(220, 60, 60, 255)),
+                         d.rectangle([9, 20, 10, 29], fill=(70, 70, 76, 255)), d.rectangle([7, 16, 14, 20], fill=(90, 110, 140, 255))), "lookout")
+small(16, 12, lambda d: (d.ellipse([0, 2, 15, 11], fill=(54, 100, 70, 255)), d.ellipse([3, 0, 12, 7], fill=(66, 120, 84, 255)),
+                         [d.point(pt, fill=(70, 90, 170, 255)) for pt in [(4, 5), (8, 3), (11, 6), (6, 8), (12, 9)]]), "bush")
+small(30, 22, lambda d: (d.rectangle([1, 2, 2, 21], fill=(110, 80, 50, 255)), d.rectangle([27, 2, 28, 21], fill=(110, 80, 50, 255)),
+                         d.line([(2, 4), (27, 4)], fill=(200, 200, 200, 255)), d.rectangle([5, 4, 10, 12], fill=(90, 120, 200, 255)),
+                         d.rectangle([14, 4, 18, 14], fill=(200, 50, 60, 255)), d.rectangle([14, 6, 18, 7], fill=(250, 250, 250, 255))), "clothesline")
+small(16, 10, lambda d: (d.ellipse([0, 2, 15, 9], fill=(250, 252, 255, 255), outline=(200, 210, 225, 255)), d.ellipse([4, 0, 11, 5], fill=(250, 252, 255, 255))), "snowpile")
+small(16, 28, lambda d: (d.ellipse([1, 14, 14, 27], fill=(250, 252, 255, 255), outline=(190, 200, 215, 255)),
+                         d.ellipse([3, 4, 12, 15], fill=(250, 252, 255, 255), outline=(190, 200, 215, 255)),
+                         d.rectangle([3, 12, 12, 14], fill=(200, 50, 60, 255)), d.point((6, 8), fill=(30, 30, 30, 255)), d.point((9, 8), fill=(30, 30, 30, 255)),
+                         d.polygon([(7, 10), (8, 10), (12, 11)], fill=(240, 130, 40, 255)),
+                         [d.point((7, y), fill=(30, 30, 30, 255)) for y in (18, 21, 24)]), "snowman")
+icon(lambda d: (d.rectangle([1, 5, 14, 13], fill=(60, 60, 70, 255)), d.rectangle([4, 3, 8, 5], fill=(60, 60, 70, 255)),
+                d.ellipse([5, 6, 11, 12], fill=(140, 180, 220, 255), outline=(30, 30, 40, 255))), "camera")
+icon(lambda d: (d.line([(1, 15), (14, 1)], fill=(150, 104, 66, 255), width=2), d.line([(14, 1), (14, 12)], fill=(220, 220, 220, 255)),
+                d.ellipse([3, 10, 6, 13], fill=(70, 70, 76, 255))), "fishing_rod")
+icon(lambda d: (d.rectangle([3, 6, 12, 14], fill=(120, 90, 60, 255)), [d.arc([x, 3, x + 4, 9], 180, 360, fill=(220, 120, 140, 255)) for x in (3, 7)]), "worms")
+icon(lambda d: (d.ellipse([1, 5, 11, 11], fill=(150, 170, 190, 255)), d.polygon([(10, 8), (15, 4), (15, 12)], fill=(150, 170, 190, 255)),
+                d.point((4, 7), fill=(20, 20, 20, 255)), d.line([(3, 10), (9, 10)], fill=(220, 120, 120, 255))), "fish")
+icon(lambda d: [d.ellipse([x, y, x + 6, y + 5], fill=(190, 150, 90, 255), outline=(140, 100, 60, 255)) for x, y in [(1, 8), (8, 8), (4, 3)]], "potatoes")
+icon(lambda d: (d.line([(8, 15), (8, 4)], fill=(60, 110, 60, 255)), [d.ellipse([x, y, x + 4, y + 3], fill=(80, 150, 80, 255)) for x, y in [(3, 4), (9, 6), (4, 9), (9, 10)]]), "herbs")
+icon(lambda d: (d.polygon([(2, 3), (6, 1), (14, 13), (12, 15)], fill=(240, 130, 40, 255)), d.line([(2, 3), (0, 0)], fill=(70, 150, 60, 255), width=2)), "carrot")
+icon(lambda d: [d.ellipse([x, y, x + 5, y + 5], fill=(40, 40, 46, 255)) for x, y in [(2, 9), (9, 9), (5, 3)]], "coal")
+icon(lambda d: (d.rectangle([2, 2, 13, 6], fill=(200, 50, 60, 255)), d.rectangle([9, 6, 13, 14], fill=(200, 50, 60, 255)),
+                d.line([(2, 4), (13, 4)], fill=(250, 250, 250, 255))), "scarf")
 print("Placeholder art written to", ROOT / "assets")

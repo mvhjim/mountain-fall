@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://cyrp3qfs40u5p"
+path="res://.godot/imported/s3_challenges.dialogue-cfcfaa4edf520cc05e9c2479850529e1.tres"
+
+[deps]
+
+source_file="res://scenarios/s3_challenges/s3_challenges.dialogue"
+dest_files=["res://.godot/imported/s3_challenges.dialogue-cfcfaa4edf520cc05e9c2479850529e1.tres"]
+
+[params]
+
+defaults=true
